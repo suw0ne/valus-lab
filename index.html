@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>밸루스 랩 | 2026 내집마련 DSR · 갈아타기 취득세 · 전월세 비교 무료 계산기</title>
-  <meta name="description" content="2026 스트레스 DSR 3단계 주담대 한도, 갈아타기 취득세·중개수수료, 전세 vs 월세 기회비용을 10초 만에 계산하는 무료 부동산·금융 시뮬레이터입니다." />
+  <title>밸루스 랩 | 2026 내집마련 DSR · 갈아타기 · 전월세 · 연말정산·ISA 절세 무료 계산기</title>
+  <meta name="description" content="2026 스트레스 DSR 3단계 주담대 한도, 갈아타기 취득세·중개수수료, 전세 vs 월세 기회비용, 직장인 연말정산·연금저축·IRP·ISA 절세 환급액을 10초 만에 계산하는 무료 금융 시뮬레이터입니다." />
   <meta property="og:title" content="밸루스 랩 | 2026 수도권 내집마련·갈아타기 실전 계산기" />
   <meta property="og:description" content="연봉과 보유 현금만 넣으면 매수 가능 상한가, 월 원리금, 취득세·복비, 전월세 유불리를 즉시 계산합니다." />
   <meta property="og:type" content="website" />
@@ -44,14 +44,19 @@
     }
     .brand h1 { font-size: 20px; font-weight: 800; }
     .header-sub { font-size: 13px; color: var(--muted); }
+    .privacy-pill {
+      font-size: 12px; font-weight: 700; color: #93c5fd;
+      background: rgba(37, 99, 235, 0.14); border: 1px solid rgba(59, 130, 246, 0.35);
+      padding: 6px 12px; border-radius: 999px; white-space: nowrap;
+    }
 
     .tabs {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px;
     }
     .tab-btn {
       background: var(--surface); color: var(--muted); border: 1px solid var(--border);
-      padding: 12px 10px; border-radius: 12px; font-size: 14px; font-weight: 700;
-      cursor: pointer; transition: all 0.18s ease;
+      padding: 12px 8px; border-radius: 12px; font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: all 0.18s ease; word-break: keep-all;
     }
     .tab-btn:hover { border-color: var(--primary); color: var(--text); }
     .tab-btn.active {
@@ -64,7 +69,7 @@
     .grid-2 { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; }
     @media (max-width: 768px) {
       .grid-2 { grid-template-columns: 1fr; }
-      .tabs { grid-template-columns: 1fr; }
+      .tabs { grid-template-columns: repeat(2, 1fr); }
     }
 
     .card {
@@ -109,6 +114,87 @@
     .bar-fill-b { background: #facc15; height: 100%; transition: width 0.25s ease; }
     .bar-legend { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 6px; }
 
+    /* 결과 1클릭 공유 요약 복사 영역 */
+    .share-bar {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;
+      padding-top: 14px; border-top: 1px solid var(--border);
+    }
+    .share-btn {
+      flex: 1 1 200px; background: rgba(59, 130, 246, 0.16); color: #dbeafe;
+      border: 1px solid rgba(59, 130, 246, 0.55); border-radius: 10px;
+      padding: 10px 14px; font-size: 13px; font-weight: 700; cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .share-btn:hover { background: rgba(59, 130, 246, 0.28); color: #fff; }
+    .share-btn.copied {
+      background: rgba(34, 197, 94, 0.2); border-color: rgba(34, 197, 94, 0.65); color: #bbf7d0;
+    }
+    .share-sub-btn {
+      background: var(--surface-2); color: var(--muted); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 12px; font-size: 12px; font-weight: 700;
+      cursor: pointer; transition: all 0.18s ease; white-space: nowrap;
+    }
+    .share-sub-btn:hover { border-color: var(--primary); color: var(--text); }
+    .share-sub-btn.copied { border-color: var(--good); color: #86efac; }
+
+    /* 크로스채널 플라이휠 섹션 */
+    .flywheel-section { margin-top: 26px; }
+    .flywheel-head {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+      gap: 8px; margin-bottom: 14px;
+    }
+    .flywheel-head h2 { font-size: 17px; font-weight: 800; color: #f8fafc; }
+    .flywheel-head p { font-size: 13px; color: var(--muted); }
+    .flywheel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    @media (max-width: 768px) {
+      .flywheel-grid { grid-template-columns: 1fr; }
+    }
+    .flywheel-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 20px; display: flex; flex-direction: column; justify-content: space-between;
+      gap: 14px; transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+    .flywheel-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .flywheel-badge {
+      display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.05em;
+      padding: 4px 9px; border-radius: 999px; margin-bottom: 10px;
+      background: rgba(59, 130, 246, 0.15); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+    .flywheel-badge.yt {
+      background: rgba(239, 68, 68, 0.14); color: #fca5a5; border-color: rgba(239, 68, 68, 0.35);
+    }
+    .flywheel-badge.tk {
+      background: rgba(250, 204, 21, 0.14); color: #fde047; border-color: rgba(250, 204, 21, 0.35);
+    }
+    .flywheel-card h3 { font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 6px; }
+    .flywheel-card p { font-size: 13px; color: #cbd5e1; line-height: 1.55; }
+    .flywheel-link {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 100%; padding: 10px 14px; border-radius: 10px; font-size: 13px; font-weight: 800;
+      text-decoration: none; background: var(--surface-2); color: #e2e8f0;
+      border: 1px solid var(--border); transition: all 0.18s ease;
+    }
+    .flywheel-link:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .flywheel-link.accent {
+      background: rgba(250, 204, 21, 0.14); color: #fde047; border-color: rgba(250, 204, 21, 0.45);
+    }
+    .flywheel-link.accent:hover { background: #facc15; color: #0f172a; border-color: #facc15; }
+
+    /* 툴킷 6개 시트 안내 리스트 */
+    .toolkit-spec {
+      margin-top: 20px; padding: 18px; border-radius: 14px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .toolkit-spec.highlight {
+      border-color: var(--accent); box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
+    }
+    .toolkit-spec h3 { margin-top: 0 !important; color: #facc15 !important; }
+    .toolkit-spec ul { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 16px; margin-top: 10px; }
+    @media (max-width: 768px) { .toolkit-spec ul { grid-template-columns: 1fr; } }
+    .toolkit-spec li { font-size: 13px; color: #cbd5e1; padding-left: 14px; position: relative; }
+    .toolkit-spec li::before { content: "•"; color: var(--accent); position: absolute; left: 0; font-weight: 800; }
+
     .upsell-banner {
       margin-top: 26px; padding: 24px; border-radius: 18px;
       background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
@@ -144,16 +230,18 @@
       <div class="brand">
         <span class="logo-badge">VALUS LAB</span>
         <div>
-          <h1>2026 내집마련 · 갈아타기 실전 계산기</h1>
-          <p class="header-sub">스트레스 DSR 3단계 · 취득세 · 중개수수료 · 전월세 기회비용 통합 시뮬레이터</p>
+          <h1>2026 내집마련 · 갈아타기 · 절세 실전 계산기</h1>
+          <p class="header-sub">스트레스 DSR 3단계 · 취득세 · 전월세 기회비용 · 연말정산·ISA·연금저축 통합 시뮬레이터</p>
         </div>
       </div>
+      <span class="privacy-pill">🔒 100% 브라우저 로컬 계산 · 서버 미전송</span>
     </header>
 
-    <div class="tabs" role="tablist">
-      <button class="tab-btn active" onclick="switchTab('dsr', this)">① 내집마련 자금·DSR 한도</button>
-      <button class="tab-btn" onclick="switchTab('tradeup', this)">② 갈아타기 취득세·부대비용</button>
-      <button class="tab-btn" onclick="switchTab('rent', this)">③ 전세 vs 월세 기회비용</button>
+    <div class="tabs" role="tablist" aria-label="계산기 유형 선택">
+      <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="dsr" onclick="switchTab('dsr', this)">① 내집마련 자금·DSR</button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="tradeup" onclick="switchTab('tradeup', this)">② 갈아타기 취득세·복비</button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="rent" onclick="switchTab('rent', this)">③ 전세 vs 월세 비교</button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="tax" onclick="switchTab('tax', this)">④ 연말정산·ISA·연금 절세</button>
     </div>
 
     <!-- TAB 1: DSR & 내집마련 -->
@@ -220,6 +308,10 @@
             </div>
             <div class="bar-legend"><span id="leg-own">자기자본</span><span id="leg-loan">대출 비중</span></div>
           </div>
+          <div class="share-bar">
+            <button type="button" class="share-btn" onclick="copyShareSummary('dsr', this)">📋 스레드·카톡 공유 요약 복사</button>
+            <button type="button" class="share-sub-btn" onclick="copyToolLink('dsr', this)">🔗 링크 복사</button>
+          </div>
         </div>
       </div>
     </section>
@@ -264,6 +356,10 @@
             <div class="stat-row"><span class="k">매도 법정 중개수수료 상한 (부가세 포함)</span><span class="v" id="tu-sell-fee">-</span></div>
             <div class="stat-row"><span class="k">인테리어 · 등기 · 이사 예비비</span><span class="v" id="tu-extra-out">-</span></div>
           </div>
+          <div class="share-bar">
+            <button type="button" class="share-btn" onclick="copyShareSummary('tradeup', this)">📋 스레드·카톡 공유 요약 복사</button>
+            <button type="button" class="share-sub-btn" onclick="copyToolLink('tradeup', this)">🔗 링크 복사</button>
+          </div>
         </div>
       </div>
     </section>
@@ -304,6 +400,70 @@
             <div class="stat-row"><span class="k">월세 선택 시 월 실질 주거비 (보증금 기회비용 포함)</span><span class="v" id="rt-m-cost">-</span></div>
             <div class="stat-row"><span class="k">적용 전월세 전환율 (환산)</span><span class="v" id="rt-conv">-</span></div>
           </div>
+          <div class="share-bar">
+            <button type="button" class="share-btn" onclick="copyShareSummary('rent', this)">📋 스레드·카톡 공유 요약 복사</button>
+            <button type="button" class="share-sub-btn" onclick="copyToolLink('rent', this)">🔗 링크 복사</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: 2026 직장인 연말정산·ISA·연금저축 절세 시뮬레이터 -->
+    <section id="tab-tax" class="panel">
+      <div class="grid-2">
+        <div class="card">
+          <h2>직장인 절세 계좌 조건 입력 (만원)</h2>
+          <div class="field">
+            <label>본인 총급여 (세전 연봉, 만원) <span id="lbl-tax-salary">5,200만원</span></label>
+            <input type="number" id="tx-salary" value="5200" step="200" oninput="calcTax()" />
+          </div>
+          <div class="inline-2">
+            <div class="field">
+              <label>연금저축 연간 납입액 (한도 600)</label>
+              <input type="number" id="tx-pension" value="600" step="50" min="0" max="1800" oninput="calcTax()" />
+            </div>
+            <div class="field">
+              <label>IRP 연간 추가 납입액 (합산 900)</label>
+              <input type="number" id="tx-irp" value="300" step="50" min="0" max="1800" oninput="calcTax()" />
+            </div>
+          </div>
+          <div class="inline-2">
+            <div class="field">
+              <label>ISA 만기→연금 전환액 (만원)</label>
+              <input type="number" id="tx-isa-transfer" value="0" step="500" min="0" oninput="calcTax()" />
+            </div>
+            <div class="field">
+              <label>ISA 예상 누적 순이익 (만원)</label>
+              <input type="number" id="tx-isa-profit" value="500" step="50" min="0" oninput="calcTax()" />
+            </div>
+          </div>
+          <div class="field">
+            <label>ISA 계좌 유형 (총급여 5,000만원 이하 서민형 자동 안내)</label>
+            <select id="tx-isa-type" onchange="calcTax()">
+              <option value="auto" selected>총급여 기준 자동 판별</option>
+              <option value="seomin">서민형 (순이익 400만원 비과세)</option>
+              <option value="general">일반형 (순이익 200만원 비과세)</option>
+            </select>
+          </div>
+        </div>
+        <div class="card">
+          <h2>2026 연말정산 환급 · ISA 절세 분석</h2>
+          <div class="kpi-hero">
+            <div class="kpi-label">연말정산 환급 + ISA 절세 총 합계 (추정)</div>
+            <div class="kpi-value" id="tx-total-benefit">-</div>
+            <div class="kpi-sub" id="tx-rate-sub">-</div>
+          </div>
+          <div class="stat-list">
+            <div class="stat-row"><span class="k">연금저축 + IRP 세액공제 환급액</span><span class="v" id="tx-pension-refund">-</span></div>
+            <div class="stat-row"><span class="k">ISA 만기 연금전환 추가 환급 (10%, 최대 300한도)</span><span class="v" id="tx-transfer-refund">-</span></div>
+            <div class="stat-row"><span class="k">ISA 비과세·9.9% 분리과세 절세액 (일반 15.4% 대비)</span><span class="v" id="tx-isa-save">-</span></div>
+            <div class="stat-row"><span class="k">공제 잔여 한도 (연금+IRP 900만원 기준)</span><span class="v" id="tx-remain-limit">-</span></div>
+          </div>
+          <div id="tx-tip-badge" class="badge-ok">계산 중...</div>
+          <div class="share-bar">
+            <button type="button" class="share-btn" onclick="copyShareSummary('tax', this)">📋 스레드·카톡 공유 요약 복사</button>
+            <button type="button" class="share-sub-btn" onclick="copyToolLink('tax', this)">🔗 링크 복사</button>
+          </div>
         </div>
       </div>
     </section>
@@ -323,10 +483,52 @@
         </p>
       </div>
       <!-- 판매 페이지(크몽/스마트스토어/리틀리) 개설 후 href URL만 교체 -->
-      <a href="#toolkit-info" class="cta-btn" onclick="alert('크몽/스마트스토어 판매 링크 연동 예정입니다. 현재 로컬 패키지(revenue-hq/products/prod01_realestate_toolkit)에 즉시 업로드 가능한 파일이 준비되어 있습니다.'); return false;">
-        올인원 엑셀 툴킷 보기 →
+      <a href="#toolkit-sheet-list" class="cta-btn" data-product="prod01" onclick="scrollToToolkit(event)">
+        올인원 엑셀 툴킷 구성 보기 →
       </a>
     </div>
+
+    <!-- 하단 크로스채널 플라이휠 카드 (스레드 · 유튜브 · 엑셀 툴킷 연결) -->
+    <section class="flywheel-section" aria-label="밸루스 크로스채널 생태계">
+      <div class="flywheel-head">
+        <h2>숫자에서 전략까지, 밸루스 채널 생태계</h2>
+        <p>매일 업데이트되는 실무 체크포인트와 자본생존 아카이브를 한 번에 확인하세요.</p>
+      </div>
+      <div class="flywheel-grid">
+        <div class="flywheel-card">
+          <div>
+            <span class="flywheel-badge">THREADS · DAILY BRIEF</span>
+            <h3>스레드 @valus.insight</h3>
+            <p>수도권 주거·대출 제도 변화와 조건별 실무 체크포인트를 매일 짧고 담백하게 정리합니다. 댓글에서 궁금한 시뮬레이션 조건을 함께 점검해 보세요.</p>
+          </div>
+          <a href="https://www.threads.net/@valus.insight" target="_blank" rel="noopener noreferrer" class="flywheel-link">
+            스레드 실시간 분석 보기 →
+          </a>
+        </div>
+
+        <div class="flywheel-card">
+          <div>
+            <span class="flywheel-badge yt">YOUTUBE · CAPITAL SURVIVAL</span>
+            <h3>유튜브 제로원 [ZeroWon]</h3>
+            <p>위기 국면의 자본 이동과 현금흐름 방어 원리를 시네마틱 다큐 스토리로 풀어냅니다. 숫자가 현실의 선택을 어떻게 바꾸는지 영상으로 확인하세요.</p>
+          </div>
+          <a href="https://www.youtube.com/@ZeroWon_KR" target="_blank" rel="noopener noreferrer" class="flywheel-link">
+            제로원 유튜브 채널 보기 →
+          </a>
+        </div>
+
+        <div class="flywheel-card">
+          <div>
+            <span class="flywheel-badge tk">TOOLKIT · 100% LOCAL XLSX</span>
+            <h3>올인원 엑셀 툴킷 (6시트)</h3>
+            <p>후보 아파트 10개 단지 자동 랭킹·비교 차트, 금리 ±1.5%p 스트레스 테스트, 현장 임장 20대 체크리스트를 오프라인 엑셀 파일 하나로 관리합니다.</p>
+          </div>
+          <a href="#toolkit-sheet-list" class="flywheel-link accent" data-product="prod01" onclick="scrollToToolkit(event)">
+            6개 시트 상세 구성 보기 →
+          </a>
+        </div>
+      </div>
+    </section>
 
     <!-- SEO & 애드센스 승인 품질 확보용 실전 금융 가이드 콘텐츠 -->
     <article class="guide-section" id="toolkit-info">
@@ -349,21 +551,249 @@
         기존 집 매도 복비, 새 집 매수 복비, 취득세 및 등기비용, 그리고 입주 전 인테리어·이사 비용까지 합하면
         보통 신규 매수가의 4.5%~6% 이상이 순수 거래 비용으로 지출되므로 여유 있게 예비비를 잡아두는 것이 안전합니다.
       </p>
+      <h3>4. 직장인 연말정산 연금저축·IRP·ISA 절세 핵심 구조</h3>
+      <p>
+        연금저축(연 600만 원)과 IRP를 합쳐 연 최대 900만 원까지 세액공제 대상이 되며, 총급여 5,500만 원 이하는 16.5%(지방소득세 포함), 초과는 13.2%의 공제율이 적용됩니다.
+        또한 ISA 계좌는 일반형 200만 원·서민형 400만 원까지 순이익이 비과세되고 초과분도 9.9%로 분리과세되어 일반 계좌(15.4%) 대비 세 부담을 크게 낮출 수 있으며, 만기 자금을 연금계좌로 전환하면 전환액의 10%(최대 300만 원)가 추가 공제 대상이 됩니다.
+        (※ 본 계산은 세법상 일반 제도 기준의 참고 시뮬레이션이며, 실제 환급액은 결정세액 및 개인별 공제 요건에 따라 달라질 수 있습니다.)
+      </p>
+      <div class="toolkit-spec" id="toolkit-sheet-list">
+        <h3>밸루스 랩 2026 올인원 엑셀 툴킷 (6개 자동 연동 시트 · 오프라인 실행)</h3>
+        <p>웹 계산기로 1차 예산을 점검한 뒤, 실제 후보 단지를 비교할 때 활용하는 로컬 Excel(.xlsx) 패키지입니다. 노란색 입력 셀만 채우면 모든 지표와 차트가 자동 계산됩니다.</p>
+        <ul>
+          <li><strong>00_사용가이드</strong> — 30초 입력 안내 및 색상 범례</li>
+          <li><strong>01_자금_DSR_계산기</strong> — 스트레스 DSR 3단계·LTV·안전 상한가 자동 진단</li>
+          <li><strong>02_갈아타기_부대비용</strong> — 6~9억 누진 취득세·농특세·법정 복비 자동 합산</li>
+          <li><strong>03_10개단지_비교대시보드</strong> — 후보 10개 단지 100점 환산·자동 랭킹·차트</li>
+          <li><strong>04_금리민감도_시뮬레이터</strong> — 기준금리 -1.0%p ~ +1.5%p 월 상환액 변동표</li>
+          <li><strong>05_현장임장_체크리스트</strong> — 교통·학군·단지·등기·특약 20개 필수 점검표</li>
+        </ul>
+      </div>
     </article>
 
     <footer>
-      © 2026 VALUS LAB (밸루스 랩) · 본 계산기는 자금 계획 참고용 시뮬레이터이며 최종 대출·세액은 금융기관 및 전문가 확인이 필요합니다.
+      © 2026 VALUS LAB (밸루스 랩) · 본 계산기는 객관적 조건별 자금 계획 참고용 시뮬레이터이며, 특정 매물·종목 추천이나 투자 권유가 아닙니다. 최종 대출·세액은 금융기관 및 전문가 확인이 필요합니다.<br />
+      모든 입력값은 사용자 브라우저 내에서만 100% 로컬 계산되며 외부 서버로 전송·저장되지 않습니다.
     </footer>
   </div>
 
   <script>
+    // 밸루스 랩 기본 URL 및 딥링크 파라미터 별칭 테이블 (100% 브라우저 로컬 실행)
+    const SITE_BASE_URL = 'https://suw0ne.github.io/valus-lab/';
+    const TAB_ALIAS_MAP = {
+      dsr: 'dsr',
+      loan: 'dsr',
+      home: 'dsr',
+      '1': 'dsr',
+      tradeup: 'tradeup',
+      acq: 'tradeup',
+      cost: 'tradeup',
+      switch: 'tradeup',
+      '2': 'tradeup',
+      rent: 'rent',
+      jeonse: 'rent',
+      monthly: 'rent',
+      '3': 'rent',
+      tax: 'tax',
+      isa: 'tax',
+      pension: 'tax',
+      irp: 'tax',
+      yearend: 'tax',
+      '4': 'tax'
+    };
+
     const fmt = (n) => Math.round(n).toLocaleString('ko-KR');
 
-    function switchTab(id, btn) {
+    function resolveTabId(raw) {
+      if (!raw) return null;
+      const key = String(raw).trim().toLowerCase();
+      return TAB_ALIAS_MAP[key] || null;
+    }
+
+    function switchTab(id, btn, syncUrl) {
+      const targetId = resolveTabId(id) || 'dsr';
+      const panel = document.getElementById('tab-' + targetId);
+      if (!panel) return;
+
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('tab-' + id).classList.add('active');
-      btn.classList.add('active');
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+
+      panel.classList.add('active');
+      const targetBtn = btn || document.querySelector('.tab-btn[data-tab="' + targetId + '"]');
+      if (targetBtn) {
+        targetBtn.classList.add('active');
+        targetBtn.setAttribute('aria-selected', 'true');
+      }
+
+      // 탭 전환 시 주소창 쿼리를 ?tool=<id>로 깔끔하게 동기화 (로컬 file:// 환경 예외 안전 처리)
+      if (syncUrl !== false) {
+        try {
+          if (window.history && typeof window.history.replaceState === 'function') {
+            const url = new URL(window.location.href);
+            url.searchParams.set('tool', targetId);
+            url.searchParams.delete('tab');
+            window.history.replaceState(null, '', url.toString());
+          }
+        } catch (e) {
+          // 로컬 파일 열람 등 replaceState 제한 환경에서는 조용히 무시
+        }
+      }
+    }
+
+    // URL 쿼리(?tool=... 또는 ?tab=...) 기반 딥링크 자동 전환
+    function applyDeepLinkFromUrl() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const requested = params.get('tool') || params.get('tab');
+        const resolved = resolveTabId(requested);
+        if (resolved) {
+          switchTab(resolved, null, false);
+        }
+      } catch (e) {
+        // 구형 환경 폴백: 기본 DSR 탭 유지
+      }
+    }
+
+    // 스레드·카톡 공유용 3줄 요약 텍스트 생성 (객관적 조건 시뮬레이션 요약)
+    function buildShareSummary(tabId) {
+      const targetId = resolveTabId(tabId) || 'dsr';
+      const deepLink = SITE_BASE_URL + '?tool=' + targetId;
+
+      if (targetId === 'dsr') {
+        const cash = Number(document.getElementById('dsr-cash').value) || 0;
+        const income = Number(document.getElementById('dsr-income').value) || 0;
+        const rate = Number(document.getElementById('dsr-rate').value) || 0;
+        const stress = Number(document.getElementById('dsr-stress').value) || 0;
+        const maxPrice = document.getElementById('out-max-price').innerText;
+        const monthly = document.getElementById('out-monthly').innerText;
+        return [
+          '[밸루스 랩 2026 DSR 시뮬레이션 요약]',
+          '• 조건: 순현금 ' + fmt(cash) + '만원 / 연소득 ' + fmt(income) + '만원 / 심사금리 ' + (rate + stress).toFixed(2) + '%',
+          '• 결과: 안전 상한가 ' + maxPrice + ' · 예상 월 상환 ' + monthly,
+          '• 무료 계산기: ' + deepLink
+        ].join('\n');
+      }
+
+      if (targetId === 'tradeup') {
+        const sell = Number(document.getElementById('tu-sell').value) || 0;
+        const buy = Number(document.getElementById('tu-buy').value) || 0;
+        const areaLabel = Number(document.getElementById('tu-over85').value) === 1 ? '85㎡ 초과' : '85㎡ 이하';
+        const total = document.getElementById('tu-total').innerText;
+        const tax = document.getElementById('tu-tax').innerText;
+        return [
+          '[밸루스 랩 갈아타기 부대비용 요약]',
+          '• 조건: 매도 ' + fmt(sell) + '만원 → 매수 ' + fmt(buy) + '만원 (' + areaLabel + ')',
+          '• 결과: 총 매몰비용 ' + total + ' · 취득세 ' + tax,
+          '• 무료 계산기: ' + deepLink
+        ].join('\n');
+      }
+
+      if (targetId === 'tax') {
+        const salary = Number(document.getElementById('tx-salary').value) || 0;
+        const pension = Number(document.getElementById('tx-pension').value) || 0;
+        const irp = Number(document.getElementById('tx-irp').value) || 0;
+        const totalBen = document.getElementById('tx-total-benefit').innerText;
+        const refund = document.getElementById('tx-pension-refund').innerText;
+        const isaSave = document.getElementById('tx-isa-save').innerText;
+        return [
+          '[밸루스 랩 2026 연말정산·ISA 절세 요약]',
+          '• 조건: 총급여 ' + fmt(salary) + '만원 / 연금저축 ' + fmt(pension) + '만원 + IRP ' + fmt(irp) + '만원',
+          '• 결과: 추정 총 절세효과 ' + totalBen + ' (세액공제 ' + refund + ' · ISA ' + isaSave + ')',
+          '• 무료 계산기: ' + deepLink
+        ].join('\n');
+      }
+
+      const jeonse = Number(document.getElementById('rt-jeonse').value) || 0;
+      const deposit = Number(document.getElementById('rt-deposit').value) || 0;
+      const monthly = Number(document.getElementById('rt-monthly').value) || 0;
+      const rate = Number(document.getElementById('rt-rate').value) || 0;
+      const winner = document.getElementById('rt-winner').innerText;
+      const diff = document.getElementById('rt-diff').innerText;
+      const conv = document.getElementById('rt-conv').innerText;
+      return [
+        '[밸루스 랩 전세 vs 월세 기회비용 요약]',
+        '• 조건: 전세 ' + fmt(jeonse) + '만원 vs 월세 ' + fmt(deposit) + '만원/월 ' + fmt(monthly) + '만원 (기준 ' + rate.toFixed(1) + '%)',
+        '• 결과: ' + winner + ' (' + diff + ' · 환산 전환율 ' + conv + ')',
+        '• 무료 계산기: ' + deepLink
+      ].join('\n');
+    }
+
+    // 클립보드 복사 유틸 (HTTPS Clipboard API + 구형/로컬 폴백)
+    function copyTextSafe(text) {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        return navigator.clipboard.writeText(text).catch(function () {
+          return fallbackCopyText(text);
+        });
+      }
+      return fallbackCopyText(text);
+    }
+
+    function fallbackCopyText(text) {
+      return new Promise(function (resolve, reject) {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.top = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          const ok = document.execCommand('copy');
+          document.body.removeChild(ta);
+          if (ok) resolve();
+          else reject(new Error('copy_failed'));
+        } catch (err) {
+          reject(err);
+        }
+      });
+    }
+
+    function flashButtonState(btn, successText) {
+      if (!btn) return;
+      if (!btn.dataset.origText) {
+        btn.dataset.origText = btn.innerText;
+      }
+      btn.classList.add('copied');
+      btn.innerText = successText;
+      if (btn._copyTimer) clearTimeout(btn._copyTimer);
+      btn._copyTimer = setTimeout(function () {
+        btn.classList.remove('copied');
+        btn.innerText = btn.dataset.origText;
+      }, 2400);
+    }
+
+    function copyShareSummary(tabId, btn) {
+      const summary = buildShareSummary(tabId);
+      copyTextSafe(summary).then(function () {
+        flashButtonState(btn, '✓ 요약 복사 완료! 스레드·카톡에 붙여넣기');
+      }).catch(function () {
+        window.prompt('아래 요약 텍스트를 복사해 주세요:', summary);
+      });
+    }
+
+    function copyToolLink(tabId, btn) {
+      const targetId = resolveTabId(tabId) || 'dsr';
+      const link = SITE_BASE_URL + '?tool=' + targetId;
+      copyTextSafe(link).then(function () {
+        flashButtonState(btn, '✓ 링크 복사됨');
+      }).catch(function () {
+        window.prompt('아래 링크를 복사해 주세요:', link);
+      });
+    }
+
+    // 올인원 엑셀 툴킷 구성 안내 영역으로 부드럽게 이동 및 강조
+    function scrollToToolkit(event) {
+      const el = document.getElementById('toolkit-sheet-list');
+      if (!el) return;
+      if (event) event.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('highlight');
+      setTimeout(function () {
+        el.classList.remove('highlight');
+      }, 2200);
     }
 
     function pmt(rateMonthly, nper, pv) {
@@ -486,9 +916,60 @@
       }
     }
 
+    function calcTax() {
+      const salary = Math.max(0, Number(document.getElementById('tx-salary').value) || 0);
+      const pensionRaw = Math.max(0, Number(document.getElementById('tx-pension').value) || 0);
+      const irpRaw = Math.max(0, Number(document.getElementById('tx-irp').value) || 0);
+      const isaTransfer = Math.max(0, Number(document.getElementById('tx-isa-transfer').value) || 0);
+      const isaProfit = Math.max(0, Number(document.getElementById('tx-isa-profit').value) || 0);
+      const isaTypeMode = document.getElementById('tx-isa-type').value;
+
+      document.getElementById('lbl-tax-salary').innerText = fmt(salary) + '만원';
+
+      // 세액공제율 (지방소득세 포함): 총급여 5,500만원 이하 16.5%, 초과 13.2%
+      const creditRate = salary <= 5500 ? 0.165 : 0.132;
+      const eligiblePension = Math.min(600, pensionRaw);
+      const eligibleTotal = Math.min(900, eligiblePension + irpRaw);
+      const pensionRefund = eligibleTotal * creditRate;
+
+      // ISA 만기 연금전환 추가 공제: 전환액의 10% (최대 300만원 한도)
+      const eligibleTransfer = Math.min(300, isaTransfer * 0.10);
+      const transferRefund = eligibleTransfer * creditRate;
+
+      // ISA 비과세 한도: 서민형(총급여 5,000만원 이하) 400만원 / 일반형 200만원
+      const isSeomin = isaTypeMode === 'seomin' || (isaTypeMode === 'auto' && salary <= 5000);
+      const taxFreeLimit = isSeomin ? 400 : 200;
+      const normalTax = isaProfit * 0.154;
+      const isaTax = Math.max(0, isaProfit - taxFreeLimit) * 0.099;
+      const isaSave = Math.max(0, normalTax - isaTax);
+
+      const totalBenefit = pensionRefund + transferRefund + isaSave;
+      const remainLimit = Math.max(0, 900 - eligibleTotal);
+
+      document.getElementById('tx-total-benefit').innerText = totalBenefit.toFixed(1) + '만원';
+      document.getElementById('tx-rate-sub').innerText =
+        '적용 세액공제율 ' + (creditRate * 100).toFixed(1) + '% · ISA ' + (isSeomin ? '서민형(400만 비과세)' : '일반형(200만 비과세)');
+      document.getElementById('tx-pension-refund').innerText = pensionRefund.toFixed(1) + '만원 (인정 ' + fmt(eligibleTotal) + '만원)';
+      document.getElementById('tx-transfer-refund').innerText = transferRefund.toFixed(1) + '만원 (인정 ' + fmt(eligibleTransfer) + '만원)';
+      document.getElementById('tx-isa-save').innerText = isaSave.toFixed(1) + '만원 (일반세금 ' + normalTax.toFixed(1) + '만 → ' + isaTax.toFixed(1) + '만)';
+      document.getElementById('tx-remain-limit').innerText = remainLimit > 0 ? fmt(remainLimit) + '만원 추가 납입 가능' : '900만원 한도 100% 채움';
+
+      const badge = document.getElementById('tx-tip-badge');
+      if (remainLimit > 0) {
+        const extraRefund = remainLimit * creditRate;
+        badge.className = 'badge-ok';
+        badge.innerText = '💡 연말까지 ' + fmt(remainLimit) + '만원을 추가 납입하면 약 ' + extraRefund.toFixed(1) + '만원의 세액공제 환급 여력이 남아 있습니다. (결정세액 한도 내)';
+      } else {
+        badge.className = 'badge-ok';
+        badge.innerText = '✅ 연금저축·IRP 기본 세액공제 한도(900만원)를 모두 채우셨습니다. ISA 비과세·만기전환 전략을 함께 점검해 보세요.';
+      }
+    }
+
     calcDSR();
     calcTradeup();
     calcRent();
+    calcTax();
+    applyDeepLinkFromUrl();
   </script>
 </body>
 </html>
