@@ -43,7 +43,7 @@
         "operatingSystem": "Web Browser",
         "inLanguage": "ko-KR",
         "isAccessibleForFree": true,
-        "dateModified": "2026-11-26",
+        "dateModified": "2026-11-27",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
         "publisher": { "@id": "https://suw0ne.github.io/valus-lab/#org" },
         "featureList": [
@@ -498,6 +498,10 @@
             <button type="button" class="share-btn" onclick="copyShareSummary('rent', this)">📋 스레드·카톡 공유 요약 복사</button>
             <button type="button" class="share-sub-btn" onclick="copyToolLink('rent', this)">🔗 링크 복사</button>
           </div>
+          <div style="margin-top:12px; padding:12px 14px; border-radius:12px; background:rgba(55,48,163,0.18); border:1px solid rgba(129,140,248,0.42); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px;">
+            <span style="font-size:12px; color:#e0e7ff; font-weight:700;">🏢 다호실 월세 수납·만기 90일 경보·공실×금리 스트레스까지 한 파일로</span>
+            <a href="#toolkit-rental-list" data-product="prod03" onclick="scrollToToolkitById('toolkit-rental-list', event)" style="font-size:12px; font-weight:800; color:#facc15; text-decoration:none; white-space:nowrap;">3호 임대·현금흐름 엑셀 대시보드 보기 →</a>
+          </div>
         </div>
       </div>
     </section>
@@ -681,11 +685,24 @@
         </ul>
       </div>
 
+      <div class="toolkit-spec" id="toolkit-rental-list" style="margin-top: 16px;">
+        <h3>밸루스 랩 2026 임대인·1인 사업자 월세 수납 & 현금흐름 자동관리 엑셀 대시보드 (6개 자동 연동 시트 · 213개 수식 · 오프라인 실행)</h3>
+        <p>원룸·오피스텔·상가·1인 사업장 등 최대 12개 호실(또는 거래처)의 계약 만기 경보, 1~12월 수납·연체 차트, 순현금흐름(NOI), 공실×금리 스트레스 테스트를 외부 서버 전송 없이 내 PC Excel(.xlsx) 하나로 관리하는 패키지입니다. (※ 객관적 장부·현금흐름 관리 도구이며 특정 매물 추천이나 투자 권유가 아닙니다.)</p>
+        <ul>
+          <li><strong>00_사용가이드</strong> — 30초 입력 안내 · 색상 범례 · 운영 참고 안내</li>
+          <li><strong>01_호실_임대계약현황</strong> — 최대 12호실 보증금·월세·관리비 합계 · 계약 만기 D-Day 및 90일 임박 자동 경보</li>
+          <li><strong>02_월별_수납_연체관리</strong> — 1~12월 실제 수납액 기록 · 월별 수납률(%)·미납 차액 자동 산출 + 수납 추이 막대 차트</li>
+          <li><strong>03_연간_현금흐름_손익</strong> — 수납액 자동 연동 + 대출이자·수선비·세금·운영경비 차감 → 세전 순현금흐름 & 누적 잔액</li>
+          <li><strong>04_공실_금리_스트레스</strong> — 공실률(0%~25%) × 대출금리 변동(-0.5%p~+1.5%p) 2차원 흑자 방어선 매트릭스</li>
+          <li><strong>05_운영_세무체크리스트</strong> — 임대차신고·갱신통지·종소세·부가세·시설점검 등 연간 15대 필수 운영 체크 완료율(%)</li>
+        </ul>
+      </div>
+
       <!-- Gemini / Google AI Overviews Query Fan-Out 가시적 요약표 & FAQ (JSON-LD와 100% 일치) -->
       <section class="toolkit-spec" id="geo-faq" aria-label="2026 핵심 기준 요약 및 자주 묻는 질문" style="margin-top: 22px;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
           <h3 style="margin:0;">2026 핵심 계산 기준 한눈에 보기 & 자주 묻는 질문 (FAQ)</h3>
-          <span style="font-size:12px; color:#93c5fd;">최종 업데이트: <time id="geo-lastmod" datetime="2026-11-26">2026-11-26</time></span>
+          <span style="font-size:12px; color:#93c5fd;">최종 업데이트: <time id="geo-lastmod" datetime="2026-11-27">2026-11-27</time></span>
         </div>
         <div style="overflow-x:auto; margin-bottom:14px;">
           <table style="width:100%; border-collapse:collapse; font-size:13px; text-align:left;">
