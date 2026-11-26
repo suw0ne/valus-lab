@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>밸루스 랩 | 2026 내집마련 DSR · 갈아타기 취득세 · 전월세 비교 무료 계산기</title>
+  <meta name="description" content="2026 스트레스 DSR 3단계 주담대 한도, 갈아타기 취득세·중개수수료, 전세 vs 월세 기회비용을 10초 만에 계산하는 무료 부동산·금융 시뮬레이터입니다." />
+  <meta property="og:title" content="밸루스 랩 | 2026 수도권 내집마련·갈아타기 실전 계산기" />
+  <meta property="og:description" content="연봉과 보유 현금만 넣으면 매수 가능 상한가, 월 원리금, 취득세·복비, 전월세 유불리를 즉시 계산합니다." />
+  <meta property="og:type" content="website" />
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #111a2e;
+      --surface-2: #17233d;
+      --border: #253453;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent: #facc15;
+      --good: #22c55e;
+      --warn: #f97316;
+      --danger: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top right, #172554 0%, var(--bg) 48%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 24px 16px 64px; }
+    header {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 12px; padding-bottom: 20px; border-bottom: 1px solid var(--border); margin-bottom: 24px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .logo-badge {
+      background: linear-gradient(135deg, #2563eb, #60a5fa); color: #fff;
+      font-weight: 800; font-size: 14px; padding: 6px 12px; border-radius: 999px;
+      letter-spacing: 0.04em;
+    }
+    .brand h1 { font-size: 20px; font-weight: 800; }
+    .header-sub { font-size: 13px; color: var(--muted); }
+
+    .tabs {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px;
+    }
+    .tab-btn {
+      background: var(--surface); color: var(--muted); border: 1px solid var(--border);
+      padding: 12px 10px; border-radius: 12px; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: all 0.18s ease;
+    }
+    .tab-btn:hover { border-color: var(--primary); color: var(--text); }
+    .tab-btn.active {
+      background: var(--primary); color: #fff; border-color: var(--primary);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .grid-2 { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; }
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .tabs { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+      padding: 22px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    }
+    .card h2 { font-size: 17px; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1; margin-bottom: 6px; font-weight: 600; }
+    .field label span { color: var(--accent); font-weight: 700; }
+    .field input[type="number"], .field select {
+      width: 100%; background: var(--surface-2); border: 1px solid var(--border);
+      color: var(--text); padding: 11px 12px; border-radius: 10px; font-size: 15px; font-weight: 600;
+      outline: none;
+    }
+    .field input:focus, .field select:focus { border-color: var(--primary); }
+    .field input[type="range"] { width: 100%; accent-color: var(--primary); margin-top: 6px; }
+    .inline-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .kpi-hero {
+      background: linear-gradient(135deg, rgba(37,99,235,0.22), rgba(15,23,42,0.9));
+      border: 1px solid rgba(59,130,246,0.5); border-radius: 14px; padding: 18px; margin-bottom: 14px;
+    }
+    .kpi-label { font-size: 12px; color: #93c5fd; font-weight: 700; }
+    .kpi-value { font-size: 30px; font-weight: 900; color: #fff; margin: 4px 0; letter-spacing: -0.02em; }
+    .kpi-sub { font-size: 13px; color: #cbd5e1; }
+
+    .stat-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+    .stat-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 12px; background: var(--surface-2); border-radius: 10px; font-size: 14px;
+    }
+    .stat-row .k { color: var(--muted); }
+    .stat-row .v { font-weight: 800; color: var(--text); }
+
+    .badge-ok { background: rgba(34,197,94,0.16); color: #86efac; border: 1px solid rgba(34,197,94,0.4); padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+    .badge-warn { background: rgba(239,68,68,0.16); color: #fca5a5; border: 1px solid rgba(239,68,68,0.4); padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+
+    .bar-wrap { margin-top: 12px; }
+    .bar-track { height: 12px; background: #0f172a; border-radius: 999px; overflow: hidden; display: flex; }
+    .bar-fill-a { background: #3b82f6; height: 100%; transition: width 0.25s ease; }
+    .bar-fill-b { background: #facc15; height: 100%; transition: width 0.25s ease; }
+    .bar-legend { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+    .upsell-banner {
+      margin-top: 26px; padding: 24px; border-radius: 18px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      border: 1px solid #3b82f6; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .upsell-banner h3 { font-size: 18px; font-weight: 800; color: #facc15; margin-bottom: 6px; }
+    .upsell-banner p { font-size: 14px; color: #e2e8f0; max-width: 600px; }
+    .cta-btn {
+      display: inline-block; background: #facc15; color: #0f172a; font-weight: 900;
+      padding: 13px 22px; border-radius: 12px; text-decoration: none; font-size: 14px;
+      transition: transform 0.15s ease;
+    }
+    .cta-btn:hover { transform: translateY(-2px); background: #fde047; }
+
+    .ad-slot {
+      margin: 22px 0; padding: 14px; border: 1px dashed #334155; border-radius: 12px;
+      text-align: center; font-size: 12px; color: #64748b; background: rgba(15,23,42,0.45);
+    }
+
+    .guide-section {
+      margin-top: 28px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 24px;
+    }
+    .guide-section h2 { font-size: 18px; font-weight: 800; margin-bottom: 12px; color: #93c5fd; }
+    .guide-section h3 { font-size: 15px; font-weight: 700; margin: 16px 0 6px; color: #f8fafc; }
+    .guide-section p { font-size: 14px; color: #cbd5e1; margin-bottom: 8px; }
+    footer { text-align: center; margin-top: 32px; font-size: 12px; color: #64748b; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <span class="logo-badge">VALUS LAB</span>
+        <div>
+          <h1>2026 내집마련 · 갈아타기 실전 계산기</h1>
+          <p class="header-sub">스트레스 DSR 3단계 · 취득세 · 중개수수료 · 전월세 기회비용 통합 시뮬레이터</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" onclick="switchTab('dsr', this)">① 내집마련 자금·DSR 한도</button>
+      <button class="tab-btn" onclick="switchTab('tradeup', this)">② 갈아타기 취득세·부대비용</button>
+      <button class="tab-btn" onclick="switchTab('rent', this)">③ 전세 vs 월세 기회비용</button>
+    </div>
+
+    <!-- TAB 1: DSR & 내집마련 -->
+    <section id="tab-dsr" class="panel active">
+      <div class="grid-2">
+        <div class="card">
+          <h2>내 자산 · 소득 조건 입력</h2>
+          <div class="field">
+            <label>보유 순현금 (만원) <span id="lbl-cash">25,000만원</span></label>
+            <input type="number" id="dsr-cash" value="25000" step="500" oninput="calcDSR()" />
+          </div>
+          <div class="field">
+            <label>부부 합산 세전 연소득 (만원) <span id="lbl-income">11,000만원</span></label>
+            <input type="number" id="dsr-income" value="11000" step="500" oninput="calcDSR()" />
+          </div>
+          <div class="field">
+            <label>기존 대출 연간 원리금 상환액 (만원) <span id="lbl-debt">600만원</span></label>
+            <input type="number" id="dsr-debt" value="600" step="100" oninput="calcDSR()" />
+          </div>
+          <div class="inline-2">
+            <div class="field">
+              <label>적용 주담대 금리 (%)</label>
+              <input type="number" id="dsr-rate" value="4.2" step="0.1" oninput="calcDSR()" />
+            </div>
+            <div class="field">
+              <label>스트레스 가산금리 (%p)</label>
+              <input type="number" id="dsr-stress" value="1.5" step="0.1" oninput="calcDSR()" />
+            </div>
+          </div>
+          <div class="inline-2">
+            <div class="field">
+              <label>대출 만기 (년)</label>
+              <select id="dsr-years" onchange="calcDSR()">
+                <option value="30" selected>30년 (원리금균등)</option>
+                <option value="40">40년 (원리금균등)</option>
+                <option value="20">20년 (원리금균등)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>목표 매수 예정가 (만원)</label>
+              <input type="number" id="dsr-target" value="90000" step="1000" oninput="calcDSR()" />
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>실시간 자금 분석 결과</h2>
+          <div class="kpi-hero">
+            <div class="kpi-label">스트레스 DSR 적용 매수 가능 안전 상한가</div>
+            <div class="kpi-value" id="out-max-price">-</div>
+            <div class="kpi-sub" id="out-max-loan-sub">-</div>
+          </div>
+          <div class="stat-list">
+            <div class="stat-row"><span class="k">DSR 40% 기준 최대 주담대</span><span class="v" id="out-dsr-loan">-</span></div>
+            <div class="stat-row"><span class="k">목표가 진입 시 필요 대출액 (부대비 4.5%)</span><span class="v" id="out-need-loan">-</span></div>
+            <div class="stat-row"><span class="k">예상 월 원리금 상환액 (적용금리)</span><span class="v" id="out-monthly">-</span></div>
+            <div class="stat-row"><span class="k">월 세전소득 대비 원리금 비중</span><span class="v" id="out-ratio">-</span></div>
+          </div>
+          <div id="out-dsr-badge" class="badge-ok">계산 중...</div>
+          <div class="bar-wrap">
+            <div class="bar-track">
+              <div class="bar-fill-a" id="bar-own" style="width:30%"></div>
+              <div class="bar-fill-b" id="bar-loan" style="width:70%"></div>
+            </div>
+            <div class="bar-legend"><span id="leg-own">자기자본</span><span id="leg-loan">대출 비중</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: 갈아타기 부대비용 -->
+    <section id="tab-tradeup" class="panel">
+      <div class="grid-2">
+        <div class="card">
+          <h2>갈아타기 매도 · 매수 금액 입력</h2>
+          <div class="field">
+            <label>기존 주택 매도 예정가 (만원, 무주택은 0)</label>
+            <input type="number" id="tu-sell" value="75000" step="1000" oninput="calcTradeup()" />
+          </div>
+          <div class="field">
+            <label>신규 주택 매수 예정가 (만원)</label>
+            <input type="number" id="tu-buy" value="115000" step="1000" oninput="calcTradeup()" />
+          </div>
+          <div class="inline-2">
+            <div class="field">
+              <label>전용면적 구분</label>
+              <select id="tu-over85" onchange="calcTradeup()">
+                <option value="0" selected>85㎡ 이하 (농특세 면제)</option>
+                <option value="1">85㎡ 초과 (농특세 +0.2%)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>수리·인테리어·이사비 (만원)</label>
+              <input type="number" id="tu-extra" value="3450" step="100" oninput="calcTradeup()" />
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h2>사라지는 거래 비용 (매몰비용)</h2>
+          <div class="kpi-hero">
+            <div class="kpi-label">갈아타기 총 부대비용 합계</div>
+            <div class="kpi-value" id="tu-total">-</div>
+            <div class="kpi-sub" id="tu-pct">-</div>
+          </div>
+          <div class="stat-list">
+            <div class="stat-row"><span class="k">매수 취득세 (지방교육세·농특세 포함)</span><span class="v" id="tu-tax">-</span></div>
+            <div class="stat-row"><span class="k">매수 법정 중개수수료 상한 (부가세 포함)</span><span class="v" id="tu-buy-fee">-</span></div>
+            <div class="stat-row"><span class="k">매도 법정 중개수수료 상한 (부가세 포함)</span><span class="v" id="tu-sell-fee">-</span></div>
+            <div class="stat-row"><span class="k">인테리어 · 등기 · 이사 예비비</span><span class="v" id="tu-extra-out">-</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: 전세 vs 월세 -->
+    <section id="tab-rent" class="panel">
+      <div class="grid-2">
+        <div class="card">
+          <h2>전세 vs 월세 조건 비교</h2>
+          <div class="field">
+            <label>전세 보증금 (만원)</label>
+            <input type="number" id="rt-jeonse" value="60000" step="1000" oninput="calcRent()" />
+          </div>
+          <div class="inline-2">
+            <div class="field">
+              <label>월세 보증금 (만원)</label>
+              <input type="number" id="rt-deposit" value="10000" step="500" oninput="calcRent()" />
+            </div>
+            <div class="field">
+              <label>월세 금액 (만원/월)</label>
+              <input type="number" id="rt-monthly" value="180" step="5" oninput="calcRent()" />
+            </div>
+          </div>
+          <div class="field">
+            <label>전세대출 금리 / 내 여유자금 운용 수익률 (연 %)</label>
+            <input type="number" id="rt-rate" value="4.0" step="0.1" oninput="calcRent()" />
+          </div>
+        </div>
+        <div class="card">
+          <h2>연간 주거 비용 손익 비교</h2>
+          <div class="kpi-hero">
+            <div class="kpi-label">더 유리한 주거 방식</div>
+            <div class="kpi-value" id="rt-winner">-</div>
+            <div class="kpi-sub" id="rt-diff">-</div>
+          </div>
+          <div class="stat-list">
+            <div class="stat-row"><span class="k">전세 선택 시 월 환산 기회비용</span><span class="v" id="rt-j-cost">-</span></div>
+            <div class="stat-row"><span class="k">월세 선택 시 월 실질 주거비 (보증금 기회비용 포함)</span><span class="v" id="rt-m-cost">-</span></div>
+            <div class="stat-row"><span class="k">적용 전월세 전환율 (환산)</span><span class="v" id="rt-conv">-</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 향후 구글 애드센스 / 카카오 애드핏 슬롯 (심사 승인 후 스크립트 활성화) -->
+    <div class="ad-slot">
+      [광고 파트너 영역 · Google AdSense / Kakao AdFit 연동 슬롯]
+    </div>
+
+    <!-- 유료 디지털 상품(1호 엑셀 툴킷) 자연 전환 배너 -->
+    <div class="upsell-banner">
+      <div>
+        <h3>후보 아파트 10곳을 한 번에 비교하고 싶다면?</h3>
+        <p>
+          무료 웹 계산기는 1개 단지 빠른 점검용입니다. <strong>[밸루스 랩 2026 올인원 엑셀 툴킷]</strong>에서는
+          후보 10개 단지 자동 랭킹·비교 차트, 금리 ±1.5%p 스트레스 테스트, 현장 임장 20대 체크리스트까지 한 번에 관리할 수 있습니다.
+        </p>
+      </div>
+      <!-- 판매 페이지(크몽/스마트스토어/리틀리) 개설 후 href URL만 교체 -->
+      <a href="#toolkit-info" class="cta-btn" onclick="alert('크몽/스마트스토어 판매 링크 연동 예정입니다. 현재 로컬 패키지(revenue-hq/products/prod01_realestate_toolkit)에 즉시 업로드 가능한 파일이 준비되어 있습니다.'); return false;">
+        올인원 엑셀 툴킷 보기 →
+      </a>
+    </div>
+
+    <!-- SEO & 애드센스 승인 품질 확보용 실전 금융 가이드 콘텐츠 -->
+    <article class="guide-section" id="toolkit-info">
+      <h2>2026 수도권 내집마련·갈아타기 자금 계산 핵심 가이드</h2>
+      <h3>1. 스트레스 DSR 3단계가 대출 한도에 미치는 영향</h3>
+      <p>
+        스트레스 DSR은 실제 적용되는 대출 금리에 향후 금리 상승 가능성을 반영한 가산금리(수도권 기준 1.50%p)를 더해
+        총부채원리금상환비율(DSR 40%)을 심사하는 제도입니다. 실제 매달 내는 이자는 적용 금리 기준으로 나가지만,
+        대출 가능 총액 자체가 줄어들기 때문에 집을 보러 가기 전 반드시 스트레스 금리 기준으로 한도를 먼저 확인해야 합니다.
+      </p>
+      <h3>2. 6억~9억 구간 취득세 누진 공식과 85㎡ 초과 농어촌특별세</h3>
+      <p>
+        1주택(무주택·일시적 2주택) 기준 주택 매매가가 6억 원 이하면 취득세 본세 1%, 9억 원 초과면 3%가 적용됩니다.
+        6억 원 초과 9억 원 이하 구간은 <code>(매매가(억) × 2 ÷ 3 - 3)%</code> 선형 누진 공식이 적용되며,
+        여기에 본세의 10%가 지방교육세로 추가됩니다. 전용면적 85㎡를 초과하는 아파트는 농어촌특별세 0.2%가 별도로 가산됩니다.
+      </p>
+      <h3>3. 갈아타기 시 간과하기 쉬운 매몰비용 4가지</h3>
+      <p>
+        단순히 '매수가 - 매도가' 차액만 준비하면 잔금일 직전에 자금이 막히는 일이 잦습니다.
+        기존 집 매도 복비, 새 집 매수 복비, 취득세 및 등기비용, 그리고 입주 전 인테리어·이사 비용까지 합하면
+        보통 신규 매수가의 4.5%~6% 이상이 순수 거래 비용으로 지출되므로 여유 있게 예비비를 잡아두는 것이 안전합니다.
+      </p>
+    </article>
+
+    <footer>
+      © 2026 VALUS LAB (밸루스 랩) · 본 계산기는 자금 계획 참고용 시뮬레이터이며 최종 대출·세액은 금융기관 및 전문가 확인이 필요합니다.
+    </footer>
+  </div>
+
+  <script>
+    const fmt = (n) => Math.round(n).toLocaleString('ko-KR');
+
+    function switchTab(id, btn) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    function pmt(rateMonthly, nper, pv) {
+      if (pv <= 0) return 0;
+      if (rateMonthly === 0) return pv / nper;
+      return (pv * rateMonthly) / (1 - Math.pow(1 + rateMonthly, -nper));
+    }
+
+    function pvFromPmt(rateMonthly, nper, payment) {
+      if (payment <= 0) return 0;
+      if (rateMonthly === 0) return payment * nper;
+      return payment * (1 - Math.pow(1 + rateMonthly, -nper)) / rateMonthly;
+    }
+
+    function calcDSR() {
+      const cash = Number(document.getElementById('dsr-cash').value) || 0;
+      const income = Number(document.getElementById('dsr-income').value) || 0;
+      const debt = Number(document.getElementById('dsr-debt').value) || 0;
+      const rate = (Number(document.getElementById('dsr-rate').value) || 0) / 100;
+      const stress = (Number(document.getElementById('dsr-stress').value) || 0) / 100;
+      const years = Number(document.getElementById('dsr-years').value) || 30;
+      const target = Number(document.getElementById('dsr-target').value) || 0;
+
+      document.getElementById('lbl-cash').innerText = fmt(cash) + '만원';
+      document.getElementById('lbl-income').innerText = fmt(income) + '만원';
+      document.getElementById('lbl-debt').innerText = fmt(debt) + '만원';
+
+      const allowAnnual = Math.max(0, income * 0.40 - debt);
+      const stressMonthlyRate = (rate + stress) / 12;
+      const maxLoanDSR = pvFromPmt(stressMonthlyRate, years * 12, allowAnnual / 12);
+      const maxLoanLTV = target * 0.70;
+      const finalMaxLoan = Math.min(maxLoanDSR, maxLoanLTV);
+      const safeMaxPrice = (cash + maxLoanDSR) / 1.045;
+
+      const needLoan = Math.max(0, target * 1.045 - cash);
+      const monthlyPay = pmt(rate / 12, years * 12, needLoan);
+      const incomeRatio = income > 0 ? ((monthlyPay * 12) / income) * 100 : 0;
+      const diff = finalMaxLoan - needLoan;
+
+      document.getElementById('out-max-price').innerText = (safeMaxPrice / 10000).toFixed(2) + '억 (' + fmt(safeMaxPrice) + '만원)';
+      document.getElementById('out-max-loan-sub').innerText = '심사금리 ' + ((rate + stress) * 100).toFixed(2) + '% 적용 · 부대비용 4.5% 반영';
+      document.getElementById('out-dsr-loan').innerText = fmt(maxLoanDSR) + '만원';
+      document.getElementById('out-need-loan').innerText = fmt(needLoan) + '만원';
+      document.getElementById('out-monthly').innerText = monthlyPay.toFixed(1) + '만원 / 월';
+      document.getElementById('out-ratio').innerText = incomeRatio.toFixed(1) + '%';
+
+      const badge = document.getElementById('out-dsr-badge');
+      if (diff >= 0) {
+        badge.className = 'badge-ok';
+        badge.innerText = '✅ 목표 매수가 진입 가능! (여유 한도 약 ' + fmt(diff) + '만원)';
+      } else {
+        badge.className = 'badge-warn';
+        badge.innerText = '⚠️ 목표가 대비 약 ' + fmt(Math.abs(diff)) + '만원 부족합니다. 안전 상한가 이하 단지를 검토해 보세요.';
+      }
+
+      const totalCap = Math.max(1, cash + needLoan);
+      const ownPct = Math.min(100, Math.round((cash / totalCap) * 100));
+      const loanPct = 100 - ownPct;
+      document.getElementById('bar-own').style.width = ownPct + '%';
+      document.getElementById('bar-loan').style.width = loanPct + '%';
+      document.getElementById('leg-own').innerText = '자기자본 ' + ownPct + '%';
+      document.getElementById('leg-loan').innerText = '대출 비중 ' + loanPct + '%';
+    }
+
+    function brokerFee(price) {
+      if (price <= 0) return 0;
+      let rate = 0.004;
+      if (price >= 150000) rate = 0.007;
+      else if (price >= 120000) rate = 0.006;
+      else if (price >= 90000) rate = 0.005;
+      return price * rate * 1.1; // 부가세 10% 포함
+    }
+
+    function calcTradeup() {
+      const sell = Number(document.getElementById('tu-sell').value) || 0;
+      const buy = Number(document.getElementById('tu-buy').value) || 0;
+      const over85 = Number(document.getElementById('tu-over85').value) === 1;
+      const extra = Number(document.getElementById('tu-extra').value) || 0;
+
+      let baseTaxRate = 0.01;
+      if (buy > 90000) baseTaxRate = 0.03;
+      else if (buy > 60000) baseTaxRate = ((buy / 10000) * 2 / 3 - 3) / 100;
+
+      const acqTax = buy * (baseTaxRate * 1.1 + (over85 ? 0.002 : 0));
+      const buyFee = brokerFee(buy);
+      const sellFee = brokerFee(sell);
+      const total = acqTax + buyFee + sellFee + extra;
+      const pct = buy > 0 ? (total / buy) * 100 : 0;
+
+      document.getElementById('tu-total').innerText = fmt(total) + '만원';
+      document.getElementById('tu-pct').innerText = '신규 매수가 대비 약 ' + pct.toFixed(2) + '% (순수 거래 매몰비용)';
+      document.getElementById('tu-tax').innerText = fmt(acqTax) + '만원 (' + (baseTaxRate * 100).toFixed(2) + '% 기준)';
+      document.getElementById('tu-buy-fee').innerText = fmt(buyFee) + '만원';
+      document.getElementById('tu-sell-fee').innerText = fmt(sellFee) + '만원';
+      document.getElementById('tu-extra-out').innerText = fmt(extra) + '만원';
+    }
+
+    function calcRent() {
+      const jeonse = Number(document.getElementById('rt-jeonse').value) || 0;
+      const deposit = Number(document.getElementById('rt-deposit').value) || 0;
+      const monthly = Number(document.getElementById('rt-monthly').value) || 0;
+      const rate = (Number(document.getElementById('rt-rate').value) || 0) / 100;
+
+      const jMonthlyCost = (jeonse * rate) / 12;
+      const mMonthlyCost = monthly + (deposit * rate) / 12;
+      const diffMonthly = Math.abs(jMonthlyCost - mMonthlyCost);
+      const gapDeposit = Math.max(1, jeonse - deposit);
+      const convRate = ((monthly * 12) / gapDeposit) * 100;
+
+      document.getElementById('rt-j-cost').innerText = jMonthlyCost.toFixed(1) + '만원 / 월';
+      document.getElementById('rt-m-cost').innerText = mMonthlyCost.toFixed(1) + '만원 / 월';
+      document.getElementById('rt-conv').innerText = convRate.toFixed(2) + '%';
+
+      if (jMonthlyCost < mMonthlyCost) {
+        document.getElementById('rt-winner').innerText = '전세가 더 유리합니다';
+        document.getElementById('rt-diff').innerText = '월 약 ' + diffMonthly.toFixed(1) + '만원 (연 ' + fmt(diffMonthly * 12) + '만원) 절약';
+      } else {
+        document.getElementById('rt-winner').innerText = '월세가 더 유리합니다';
+        document.getElementById('rt-diff').innerText = '월 약 ' + diffMonthly.toFixed(1) + '만원 (연 ' + fmt(diffMonthly * 12) + '만원) 절약';
+      }
+    }
+
+    calcDSR();
+    calcTradeup();
+    calcRent();
+  </script>
+</body>
+</html>
