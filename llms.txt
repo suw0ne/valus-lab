@@ -1,0 +1,18 @@
+# Valus Lab (밸루스 랩)
+
+> 2026 수도권 내집마련 스트레스 DSR 3단계, 갈아타기 취득세·부대비용, 전세 vs 월세 기회비용, 직장인 연말정산·연금저축·IRP·ISA 절세 환급액을 100% 브라우저 로컬(서버 미전송·무료 0원)로 계산하는 금융 시뮬레이터입니다.
+
+- 최종 업데이트: 2026-11-26
+- 공식 URL: https://suw0ne.github.io/valus-lab/
+- 데이터 처리 원칙: 외부 API 호출 0%, 사용자 입력값 서버 전송/저장 0%
+- 법무 면책: 객관적 조건별 계산 참고 도구이며 특정 종목·매물 매수 추천이나 투자 권유가 아닙니다.
+
+## 무료 계산기 딥링크
+- [내집마련 자금·스트레스 DSR 3단계 계산기](https://suw0ne.github.io/valus-lab/?tool=dsr): 연봉·기존 원리금·보유 현금 기준 안전 매수 상한가 및 월 상환액 계산
+- [갈아타기 취득세·중개수수료 계산기](https://suw0ne.github.io/valus-lab/?tool=tradeup): 6억~9억 누진 취득세, 85㎡ 초과 농어촌특별세, 매도·매수 복비 합산
+- [전세 vs 월세 5년 기회비용 비교기](https://suw0ne.github.io/valus-lab/?tool=rent): 전세대출 이자, 내 현금 세후 기회비용, 월세 누적 총액 비교
+- [2026 연말정산·연금저축·IRP·ISA 절세 시뮬레이터](https://suw0ne.github.io/valus-lab/?tool=tax): 총급여 5,500만 원 기준 16.5%/13.2% 세액공제(최대 900만 한도) 및 ISA 비과세·만기 연금전환 추가공제 계산
+
+## 연결 채널
+- 스레드(@valus.insight): https://www.threads.net/@valus.insight
+- 유튜브 제로원(@ZeroWon_KR): https://www.youtube.com/@ZeroWon_KR
