@@ -558,6 +558,10 @@
             <button type="button" class="share-btn" onclick="copyShareSummary('tax', this)">📋 스레드·카톡 공유 요약 복사</button>
             <button type="button" class="share-sub-btn" onclick="copyToolLink('tax', this)">🔗 링크 복사</button>
           </div>
+          <div style="margin-top:12px; padding:12px 14px; border-radius:12px; background:rgba(15,118,110,0.16); border:1px solid rgba(45,212,191,0.4); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px;">
+            <span style="font-size:12px; color:#ccfbf1; font-weight:700;">📊 1~12월 월별 납입 트래커·ISA 비교 차트·15대 체크리스트까지 한 번에</span>
+            <a href="#toolkit-tax-list" data-product="prod02" onclick="scrollToToolkitById('toolkit-tax-list', event)" style="font-size:12px; font-weight:800; color:#facc15; text-decoration:none; white-space:nowrap;">2호 절세 엑셀 툴킷 구성 보기 →</a>
+          </div>
         </div>
       </div>
     </section>
@@ -661,6 +665,19 @@
           <li><strong>03_10개단지_비교대시보드</strong> — 후보 10개 단지 100점 환산·자동 랭킹·차트</li>
           <li><strong>04_금리민감도_시뮬레이터</strong> — 기준금리 -1.0%p ~ +1.5%p 월 상환액 변동표</li>
           <li><strong>05_현장임장_체크리스트</strong> — 교통·학군·단지·등기·특약 20개 필수 점검표</li>
+        </ul>
+      </div>
+
+      <div class="toolkit-spec" id="toolkit-tax-list" style="margin-top: 16px;">
+        <h3>밸루스 랩 2026 연말정산·ISA·연금저축 절세 올인원 엑셀 툴킷 (6개 자동 연동 시트 · 오프라인 실행)</h3>
+        <p>무료 절세 시뮬레이터로 1차 환급액을 확인한 뒤, 1년치 월별 납입 진도와 ISA 세후 비교·연말정산 누락 항목까지 오프라인 Excel(.xlsx) 하나로 관리하는 패키지입니다. (※ 일반 세법 기준 참고 도구이며 특정 금융상품·종목 투자 권유가 아닙니다.)</p>
+        <ul>
+          <li><strong>00_사용가이드</strong> — 30초 입력 안내 · 색상 범례 · 세법 참고 안내</li>
+          <li><strong>01_연말정산_세액공제</strong> — 총급여 5,500만 경계 16.5%/13.2% 자동 분기 · 연금 600+IRP 900+ISA 전환 300 환급 진단</li>
+          <li><strong>02_ISA_일반계좌_비교</strong> — 서민형(400만)/일반형(200만) 비과세 · 9.9% 분리과세 vs 15.4% 세후 비교 차트</li>
+          <li><strong>03_월별_납입트래커</strong> — 1~12월 연금·IRP·ISA 납입 기록 · 한도 달성률(%) 및 연말 막차 잔여액 연동</li>
+          <li><strong>04_연봉구간별_절세표</strong> — 총급여 3,500만~1.2억 구간별 최대 환급액 · ISA 유형 참조표</li>
+          <li><strong>05_연말정산_체크리스트</strong> — 카드 황금비율·월세·청약·안경비·고향사랑기부 등 15대 누락 방지 점검표</li>
         </ul>
       </div>
 
@@ -940,8 +957,8 @@
     }
 
     // 올인원 엑셀 툴킷 구성 안내 영역으로 부드럽게 이동 및 강조
-    function scrollToToolkit(event) {
-      const el = document.getElementById('toolkit-sheet-list');
+    function scrollToToolkitById(elId, event) {
+      const el = document.getElementById(elId);
       if (!el) return;
       if (event) event.preventDefault();
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -949,6 +966,10 @@
       setTimeout(function () {
         el.classList.remove('highlight');
       }, 2200);
+    }
+
+    function scrollToToolkit(event) {
+      scrollToToolkitById('toolkit-sheet-list', event);
     }
 
     function pmt(rateMonthly, nper, pv) {
