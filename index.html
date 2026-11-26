@@ -774,6 +774,25 @@
       '4': 'tax'
     };
 
+    const TAB_META = {
+      dsr: {
+        title: '2026 스트레스 DSR 3단계 대출 한도·매수 상한가 계산기 | 밸루스 랩',
+        desc: '순현금과 연소득, 스트레스 DSR 3단계 가산금리를 반영해 수도권 내집마련 안전 상한가와 월 원리금을 1초 만에 시뮬레이션합니다.'
+      },
+      tradeup: {
+        title: '2026 아파트 갈아타기 취득세·중개수수료 부대비용 계산기 | 밸루스 랩',
+        desc: '매도가·매수가·전용 85㎡ 기준 취득세와 매도·매수 중개수수료, 이사·인테리어 등 갈아타기 총 매몰비용을 즉시 계산합니다.'
+      },
+      rent: {
+        title: '2026 전세 vs 월세 기회비용·전월세 전환율 비교 계산기 | 밸루스 랩',
+        desc: '전세보증금 기회비용과 월세 실질 주거비, 환산 전월세 전환율을 비교해 연간 더 유리한 주거 방식을 진단합니다.'
+      },
+      tax: {
+        title: '2026 연말정산·연금저축·IRP·ISA 절세 환급 시뮬레이터 | 밸루스 랩',
+        desc: '총급여별 16.5%/13.2% 세액공제율 자동 분기와 연금저축·IRP·ISA 비과세 및 만기전환 절세 효과를 한 번에 계산합니다.'
+      }
+    };
+
     const fmt = (n) => Math.round(n).toLocaleString('ko-KR');
 
     function resolveTabId(raw) {
@@ -798,6 +817,14 @@
       if (targetBtn) {
         targetBtn.classList.add('active');
         targetBtn.setAttribute('aria-selected', 'true');
+      }
+
+      // 탭 주제에 맞춰 브라우저 <title> 및 <meta name="description"> 동적 동기화 (GEO/SEO 보강)
+      const metaInfo = TAB_META[targetId];
+      if (metaInfo) {
+        document.title = metaInfo.title;
+        const descEl = document.querySelector('meta[name="description"]');
+        if (descEl) descEl.setAttribute('content', metaInfo.desc);
       }
 
       // 탭 전환 시 주소창 쿼리를 ?tool=<id>로 깔끔하게 동기화 (로컬 file:// 환경 예외 안전 처리)
