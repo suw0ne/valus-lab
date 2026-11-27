@@ -307,6 +307,64 @@
       background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.4);
       color: #bae6fd; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 800;
     }
+    .tk-action-group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .tk-preview-btn {
+      display: inline-flex; align-items: center; gap: 5px; padding: 8px 13px; border-radius: 10px;
+      background: rgba(56, 189, 248, 0.16); color: #e0f2fe; border: 1px solid rgba(56, 189, 248, 0.55);
+      font-size: 12px; font-weight: 800; cursor: pointer; transition: all 0.18s ease; white-space: nowrap;
+    }
+    .tk-preview-btn:hover { background: rgba(56, 189, 248, 0.32); color: #ffffff; border-color: #38bdf8; }
+    .xlsx-modal-backdrop {
+      position: fixed; inset: 0; z-index: 9999; background: rgba(2, 6, 23, 0.78);
+      backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 14px;
+    }
+    .xlsx-modal-backdrop.open { display: flex; }
+    .xlsx-modal {
+      width: min(820px, 96vw); max-height: 90vh; overflow-y: auto;
+      background: #0f172a; border: 1.5px solid rgba(56, 189, 248, 0.55); border-radius: 18px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65); padding: 20px; color: #f8fafc;
+    }
+    .xlsx-modal-head {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+      padding-bottom: 12px; border-bottom: 1px solid #1e293b;
+    }
+    .xlsx-modal-head h3 { font-size: 17px; font-weight: 900; color: #fde047; margin: 0 0 4px; }
+    .xlsx-modal-sub { font-size: 12px; color: #94a3b8; }
+    .xlsx-close-btn {
+      background: #1e293b; color: #e2e8f0; border: 1px solid #334155; border-radius: 8px;
+      padding: 6px 11px; font-size: 13px; font-weight: 800; cursor: pointer;
+    }
+    .xlsx-close-btn:hover { background: #334155; color: #fff; }
+    .xlsx-sheet-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 12px; }
+    .xlsx-sheet-tab {
+      background: #1e293b; color: #cbd5e1; border: 1px solid #334155; border-radius: 8px;
+      padding: 6px 10px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s ease;
+    }
+    .xlsx-sheet-tab.active { background: #1d4ed8; color: #fff; border-color: #60a5fa; }
+    .xlsx-fx-bar {
+      display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 10px;
+      background: #020617; border: 1px solid #1e293b; margin-bottom: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color: #86efac;
+      overflow-x: auto; white-space: nowrap;
+    }
+    .xlsx-fx-badge {
+      background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.45);
+      border-radius: 6px; padding: 2px 7px; font-weight: 900; font-style: italic;
+    }
+    .xlsx-sheet-desc { font-size: 13px; color: #cbd5e1; margin-bottom: 10px; line-height: 1.5; }
+    .xlsx-table-wrap { overflow-x: auto; border: 1px solid #1e293b; border-radius: 10px; }
+    .xlsx-table { width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: left; }
+    .xlsx-table th {
+      background: #1e293b; color: #93c5fd; padding: 8px 10px; font-weight: 800; border-bottom: 1px solid #334155;
+    }
+    .xlsx-table td { padding: 8px 10px; border-bottom: 1px solid #1e293b; color: #e2e8f0; }
+    .xlsx-table td.cell-in { background: rgba(250, 204, 21, 0.14); color: #fef08a; font-weight: 800; }
+    .xlsx-table td.cell-out { background: rgba(56, 189, 248, 0.12); color: #7dd3fc; font-weight: 800; }
+    .xlsx-modal-foot {
+      margin-top: 14px; padding-top: 12px; border-top: 1px solid #1e293b;
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;
+    }
+    .xlsx-legend { font-size: 11.5px; color: #94a3b8; }
     .tk-store-btn {
       display: inline-flex; align-items: center; gap: 6px;
       background: linear-gradient(135deg, #facc15, #f59e0b); color: #0f172a;
@@ -746,7 +804,10 @@
               <span class="tk-meta-pill">6시트 · 94개 자동수식 · 비교차트 · 100% 오프라인 .xlsx</span>
             </div>
           </div>
-          <a href="#toolkit-sheet-list" class="tk-store-btn" data-store-key="prod01" onclick="handleStoreCta('prod01', 'toolkit-sheet-list', event)">툴킷 구성 확인 · 스토어 준비중</a>
+          <div class="tk-action-group">
+            <button type="button" class="tk-preview-btn" onclick="openToolkitPreview('prod01')">👁️ 시트 구성·샘플 미리보기</button>
+            <a href="#toolkit-sheet-list" class="tk-store-btn" data-store-key="prod01" onclick="handleStoreCta('prod01', 'toolkit-sheet-list', event)">툴킷 구성 확인 · 스토어 준비중</a>
+          </div>
         </div>
         <p>웹 계산기로 1차 예산을 점검한 뒤, 실제 후보 단지를 비교할 때 활용하는 로컬 Excel(.xlsx) 패키지입니다. 노란색 입력 셀만 채우면 모든 지표와 차트가 자동 계산됩니다.</p>
         <ul>
@@ -768,7 +829,10 @@
               <span class="tk-meta-pill">6시트 · 97개 자동수식 · 세후비교차트 · 100% 오프라인 .xlsx</span>
             </div>
           </div>
-          <a href="#toolkit-tax-list" class="tk-store-btn" data-store-key="prod02" onclick="handleStoreCta('prod02', 'toolkit-tax-list', event)">툴킷 구성 확인 · 스토어 준비중</a>
+          <div class="tk-action-group">
+            <button type="button" class="tk-preview-btn" onclick="openToolkitPreview('prod02')">👁️ 시트 구성·샘플 미리보기</button>
+            <a href="#toolkit-tax-list" class="tk-store-btn" data-store-key="prod02" onclick="handleStoreCta('prod02', 'toolkit-tax-list', event)">툴킷 구성 확인 · 스토어 준비중</a>
+          </div>
         </div>
         <p>무료 절세 시뮬레이터로 1차 환급액을 확인한 뒤, 1년치 월별 납입 진도와 ISA 세후 비교·연말정산 누락 항목까지 오프라인 Excel(.xlsx) 하나로 관리하는 패키지입니다. (※ 일반 세법 기준 참고 도구이며 특정 금융상품·종목 투자 권유가 아닙니다.)</p>
         <ul>
@@ -790,7 +854,10 @@
               <span class="tk-meta-pill">6시트 · 213개 자동수식 · 수납률차트 · 100% 오프라인 .xlsx</span>
             </div>
           </div>
-          <a href="#toolkit-rental-list" class="tk-store-btn" data-store-key="prod03" onclick="handleStoreCta('prod03', 'toolkit-rental-list', event)">툴킷 구성 확인 · 스토어 준비중</a>
+          <div class="tk-action-group">
+            <button type="button" class="tk-preview-btn" onclick="openToolkitPreview('prod03')">👁️ 시트 구성·샘플 미리보기</button>
+            <a href="#toolkit-rental-list" class="tk-store-btn" data-store-key="prod03" onclick="handleStoreCta('prod03', 'toolkit-rental-list', event)">툴킷 구성 확인 · 스토어 준비중</a>
+          </div>
         </div>
         <p>원룸·오피스텔·상가·1인 사업장 등 최대 12개 호실(또는 거래처)의 계약 만기 경보, 1~12월 수납·연체 차트, 순현금흐름(NOI), 공실×금리 스트레스 테스트를 외부 서버 전송 없이 내 PC Excel(.xlsx) 하나로 관리하는 패키지입니다. (※ 객관적 장부·현금흐름 관리 도구이며 특정 매물 추천이나 투자 권유가 아닙니다.)</p>
         <ul>
@@ -868,12 +935,41 @@
     <footer>
       <nav id="valus-hub-bar" aria-label="밸루스 무료 웹앱 허브" style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-bottom:14px;">
         <a href="https://suw0ne.github.io/valus-lab/" style="padding:6px 12px; border-radius:999px; background:rgba(59,130,246,0.18); border:1px solid rgba(59,130,246,0.5); color:#bfdbfe; text-decoration:none; font-weight:700;">🧮 밸루스 랩 (금융·절세)</a>
-        <a href="https://suw0ne.github.io/valus-arcade/" target="_blank" rel="noopener noreferrer" style="padding:6px 12px; border-radius:999px; background:#18233c; border:1px solid #253453; color:#fde047; text-decoration:none; font-weight:700;">🎮 밸루스 아케이드 (무료 게임 4종 →)</a>
+        <a href="https://suw0ne.github.io/valus-arcade/" target="_blank" rel="noopener noreferrer" style="padding:6px 12px; border-radius:999px; background:#18233c; border:1px solid #253453; color:#fde047; text-decoration:none; font-weight:700;">🎮 밸루스 아케이드 (무료 게임 8종 →)</a>
         <a href="https://suw0ne.github.io/valus-solo-calc/" target="_blank" rel="noopener noreferrer" style="padding:6px 12px; border-radius:999px; background:#18233c; border:1px solid #253453; color:#67e8f9; text-decoration:none; font-weight:700;">🌐 VALUS SOLO CALC (영문 계산기 →)</a>
       </nav>
       © 2026 VALUS LAB (밸루스 랩) · 본 계산기는 객관적 조건별 자금 계획 참고용 시뮬레이터이며, 특정 매물·종목 추천이나 투자 권유가 아닙니다. 최종 대출·세액은 금융기관 및 전문가 확인이 필요합니다.<br />
       모든 입력값은 사용자 브라우저 내에서만 100% 로컬 계산되며 외부 서버로 전송·저장되지 않습니다.
     </footer>
+  </div>
+
+  <!-- 엑셀 툴킷 시트 구성·수식·샘플 인터랙티브 미리보기 모달 (100% 로컬 · 0원) -->
+  <div id="xlsx-preview-backdrop" class="xlsx-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="xlsx-modal-title" onclick="if(event.target===this) closeToolkitPreview()">
+    <div class="xlsx-modal">
+      <div class="xlsx-modal-head">
+        <div>
+          <h3 id="xlsx-modal-title">엑셀 툴킷 미리보기</h3>
+          <div id="xlsx-modal-sub" class="xlsx-modal-sub">6시트 · 자동수식 · 100% 오프라인 .xlsx</div>
+        </div>
+        <button type="button" class="xlsx-close-btn" onclick="closeToolkitPreview()">✕ 닫기</button>
+      </div>
+      <div id="xlsx-sheet-tabs" class="xlsx-sheet-tabs" role="tablist"></div>
+      <div class="xlsx-fx-bar">
+        <span class="xlsx-fx-badge">fx</span>
+        <span id="xlsx-fx-code">=PMT(4.2%/12, 360, -52000)</span>
+      </div>
+      <p id="xlsx-sheet-desc" class="xlsx-sheet-desc"></p>
+      <div class="xlsx-table-wrap">
+        <table class="xlsx-table">
+          <thead id="xlsx-table-head"></thead>
+          <tbody id="xlsx-table-body"></tbody>
+        </table>
+      </div>
+      <div class="xlsx-modal-foot">
+        <span class="xlsx-legend">🟨 노란 셀: 사용자 입력값 · 🟦 파란 셀: 자동 연동 수식 결과 (서버 전송 0% 로컬 Excel)</span>
+        <a id="xlsx-modal-cta" href="#toolkit-sheet-list" class="tk-store-btn">툴킷 구성 확인</a>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -1349,6 +1445,241 @@
       document.getElementById('tx-bar-pen').style.width = Math.max(4, Math.round((pensionRefund / txMax) * 100)) + '%';
       document.getElementById('tx-bar-isa').style.width = Math.max(4, Math.round((isaCombined / txMax) * 100)) + '%';
     }
+
+    const TOOLKIT_PREVIEWS = {
+      prod01: {
+        title: '1호 · 2026 수도권 내집마련·갈아타기 올인원 엑셀 툴킷',
+        sub: '₩19,900 · 6시트 · 94개 자동연동 수식 · 10개 단지 자동 랭킹 차트 · 100% 오프라인 .xlsx',
+        fallbackId: 'toolkit-sheet-list',
+        sheets: [
+          {
+            name: '01_자금_DSR_계산기',
+            fx: '=PV((C8+C9)/12, C10*12, -(C6*0.4-C7)/12)',
+            desc: '노란 셀에 순현금·연소득·기존 원리금·적용금리를 입력하면 스트레스 DSR 3단계(+1.50%p) 반영 최대 대출한도와 안전 상한가가 자동 계산됩니다.',
+            headers: ['항목', '샘플 입력/결과', '구분', '설명'],
+            rows: [
+              ['가용 순현금', '25,000 만원', 'in', '노란 입력 셀'],
+              ['부부 합산 연소득', '11,000 만원', 'in', '노란 입력 셀'],
+              ['스트레스 DSR 심사금리', '5.70% (4.20% + 1.50%p)', 'out', '자동 합산'],
+              ['DSR 40% 최대 대출한도', '58,420 만원', 'out', 'PV 자동 수식'],
+              ['안전 매수 상한가 (부대비용 4.5%)', '7.98억 (79,828 만원)', 'out', '자동 진단']
+            ]
+          },
+          {
+            name: '02_갈아타기_부대비용',
+            fx: '=IF(C5>90000,0.03,IF(C5>60000,(C5/10000*2/3-3)/100,0.01))',
+            desc: '6억~9억 선형 누진 취득세, 지방교육세(10%), 85㎡ 초과 농특세(0.2%), 매도·매수 법정 상한 복비를 자동 합산합니다.',
+            headers: ['비용 항목', '샘플 금액 (매수 8.5억)', '구분', '적용 공식'],
+            rows: [
+              ['신규 매수가 / 기존 매도가', '85,000만 / 60,000만', 'in', '노란 입력 셀'],
+              ['취득세 + 지방교육세 (84㎡)', '2,493 만원', 'out', '2.67% 누진 + 교육세 10%'],
+              ['매수·매도 법정 중개수수료', '638 만원', 'out', '요율표 IF 자동 분기'],
+              ['이사·등기·예비비', '800 만원', 'in', '노란 입력 셀'],
+              ['총 갈아타기 매몰비용', '3,931 만원 (4.62%)', 'out', 'SUM 자동 합계']
+            ]
+          },
+          {
+            name: '03_10개단지_비교대시보드',
+            fx: '=RANK(H6,$H$6:$H$15,0) & "위 (" & TEXT(H6,"0.0") & "점)"',
+            desc: '후보 아파트 최대 10개 단지의 호가·교통·학군·연식·자금여력을 100점 환산해 자동 랭킹과 비교 막대 차트로 정리합니다.',
+            headers: ['후보 단지 (예시)', '호가', '자금 적합', '100점 환산 / 자동 순위'],
+            rows: [
+              ['샘플 A단지 (역세권 84㎡)', '7.8억', '진입 가능', '88.5점 · 1위'],
+              ['샘플 B단지 (신축 74㎡)', '7.5억', '진입 가능', '84.0점 · 2위'],
+              ['샘플 C단지 (대단지 84㎡)', '8.4억', '4,100만 부족', '76.5점 · 3위']
+            ]
+          },
+          {
+            name: '04_금리민감도_시뮬레이터',
+            fx: '=PMT((C$5+$B7)/12, C$6*12, -C$4)',
+            desc: '기준 금리 -1.0%p ~ +1.5%p 변동 시 월 원리금 상환액과 소득 대비 상환 부담률(%) 변화를 매트릭스로 사전 점검합니다.',
+            headers: ['금리 시나리오', '적용 금리', '월 원리금 (5.5억/30년)', '소득 대비 비중'],
+            rows: [
+              ['금리 -0.5%p 완화', '3.70%', '253.2 만원', '27.6%'],
+              ['현재 기준 금리', '4.20%', '269.0 만원', '29.3%'],
+              ['금리 +1.0%p 상승', '5.20%', '302.0 만원', '32.9%'],
+              ['금리 +1.5%p 스트레스', '5.70%', '319.2 만원', '34.8%']
+            ]
+          },
+          {
+            name: '05_현장임장_체크리스트',
+            fx: '=COUNTIF(E6:E25,"완료")/COUNTA(B6:B25)',
+            desc: '교통·채광·누수·등기부·특약 등 현장 임장 20대 필수 점검 항목을 체크하면 완료율(%)이 자동 집계됩니다.',
+            headers: ['점검 영역', '핵심 확인 항목', '샘플 상태', '비고'],
+            rows: [
+              ['단지·교통', '도보 역세권 실측·주차 대수(1.2대+)', '완료', '자동 완료율 연동'],
+              ['내부 상태', '확장부 결로·창호 연식·수압 확인', '완료', '자동 완료율 연동'],
+              ['권리·특약', '등기부 을구 근저당 말소 특약 점검', '예정', '계약 전 필수']
+            ]
+          }
+        ]
+      },
+      prod02: {
+        title: '2호 · 2026 연말정산·ISA·연금저축 절세 올인원 엑셀 툴킷',
+        sub: '₩16,900 · 6시트 · 97개 자동연동 수식 · 세후 비교 차트 · 100% 오프라인 .xlsx',
+        fallbackId: 'toolkit-tax-list',
+        sheets: [
+          {
+            name: '01_연말정산_세액공제',
+            fx: '=MIN(900, MIN(600,C6)+C7) * IF(C5<=5500, 0.165, 0.132)',
+            desc: '총급여 5,500만원 경계(16.5% / 13.2%)를 자동 분기해 연금저축·IRP·ISA 만기전환 추가공제 추정 환급액을 산출합니다.',
+            headers: ['항목', '샘플 입력/결과', '구분', '자동 계산 기준'],
+            rows: [
+              ['연간 총급여', '5,400 만원', 'in', '16.5% 구간 자동 판별'],
+              ['연금저축 + IRP 납입', '600만 + 300만', 'in', '합산 900만 한도 100%'],
+              ['기본 세액공제 추정 환급액', '148.5 만원', 'out', '900만 × 16.5%'],
+              ['ISA 만기 전환(3,000만) 추가 환급', '49.5 만원', 'out', '300만 한도 × 16.5%']
+            ]
+          },
+          {
+            name: '02_ISA_일반계좌_비교',
+            fx: '=MAX(0, C6*0.154 - MAX(0, C6-IF(C5<=5000,400,200))*0.099)',
+            desc: '서민형(400만 비과세)/일반형(200만 비과세) 및 9.9% 분리과세와 일반계좌(15.4%)의 세후 차이를 막대 차트로 비교합니다.',
+            headers: ['비교 항목', '일반 과세계좌', 'ISA 계좌 (일반형)', '절세 차액'],
+            rows: [
+              ['3년 누적 순이익 (예시)', '800 만원', '800 만원', '노란 입력 셀'],
+              ['예상 세금 부담', '123.2 만원 (15.4%)', '59.4 만원 (9.9%)', '-63.8 만원 절세'],
+              ['세후 실질 잔액', '676.8 만원', '740.6 만원', '+63.8 만원 우위']
+            ]
+          },
+          {
+            name: '03_월별_납입트래커',
+            fx: '=SUM(C6:C17)/900 & " (" & MAX(0, 900-SUM(C6:C17)) & "만 잔여)"',
+            desc: '1~12월 연금저축·IRP·ISA 월별 납입 내역을 기록하면 연간 한도 달성률(%)과 연말 잔여 한도가 자동 연동됩니다.',
+            headers: ['구분', '1~10월 누적', '연간 목표 한도', '달성률 / 잔여액'],
+            rows: [
+              ['연금저축 펀드', '500 만원', '600 만원', '83.3% (100만 잔여)'],
+              ['개인형 IRP', '200 만원', '300 만원', '66.7% (100만 잔여)'],
+              ['중개형 ISA', '1,500 만원', '2,000 만원', '75.0% (500만 잔여)']
+            ]
+          },
+          {
+            name: '05_연말정산_체크리스트',
+            fx: '=COUNTIF(D6:D20,"완료")/COUNTA(B6:B20)',
+            desc: '신용·체크카드 황금비율, 월세 세액공제, 주택청약, 안경비, 고향사랑기부제 등 15대 누락 방지 항목을 점검합니다.',
+            headers: ['공제 영역', '핵심 점검 포인트', '샘플 상태', '비고'],
+            rows: [
+              ['카드 소득공제', '총급여 25% 초과분 체크카드·현금영수증 전환', '완료', '자동 진척도 연동'],
+              ['주거 공제', '무주택 월세 세액공제(총급여 8천 이하) 증빙', '완료', '이체내역 보관'],
+              ['기부·의료비', '고향사랑기부제 10만 전액공제·안경 영수증', '예정', '12월 마감']
+            ]
+          }
+        ]
+      },
+      prod03: {
+        title: '3호 · 2026 임대인·1인 사업자 월세 수납 & 현금흐름 대시보드',
+        sub: '₩24,900 · 6시트 · 213개 자동연동 수식 · 12호실 만기경보 & 공실 스트레스 매트릭스 · .xlsx',
+        fallbackId: 'toolkit-rental-list',
+        sheets: [
+          {
+            name: '01_호실_임대계약현황',
+            fx: '=IF(F6-TODAY()<=90, "⚠️ 만기임박 D-"&(F6-TODAY()), "정상")',
+            desc: '최대 12개 호실(또는 거래처)의 보증금·월세·관리비 합계와 계약 만기 D-Day 90일 경보를 자동 판정합니다.',
+            headers: ['호실(예시)', '보증금 / 월세', '만기일', '자동 상태 경보'],
+            rows: [
+              ['101호 (원룸)', '1,000만 / 62만', '2027-02-15', '⚠️ 만기임박 D-80'],
+              ['201호 (오피스텔)', '2,000만 / 78만', '2027-08-31', '정상 유지'],
+              ['301호 (1인 오피스)', '1,500만 / 95만', '2027-11-30', '정상 유지']
+            ]
+          },
+          {
+            name: '02_월별_수납_연체관리',
+            fx: '=IF(C18>0, SUM(D6:D17)/C18, 0)',
+            desc: '1~12월 실제 입금액을 입력하면 월별 수납률(%), 미납 차액, 연간 수납 추이 막대 차트가 자동 생성됩니다.',
+            headers: ['월', '청구 합계', '실제 수납액', '수납률 / 미납액'],
+            rows: [
+              ['1월', '480 만원', '480 만원', '100.0% (미납 0)'],
+              ['2월', '480 만원', '418 만원', '87.1% (미납 62만)'],
+              ['3월', '480 만원', '480 만원', '100.0% (미납 0)']
+            ]
+          },
+          {
+            name: '03_연간_현금흐름_손익',
+            fx: '=C6 - SUM(C7:C10)',
+            desc: '수납 시트 합계를 자동 연동해 대출이자·수선비·세금·관리비를 차감한 세전 순현금흐름(NOI)과 누적 잔액을 추적합니다.',
+            headers: ['연간 손익 항목', '샘플 금액', '구분', '연동 방식'],
+            rows: [
+              ['연간 총 수납액 (12개월)', '5,698 만원', 'out', '02 시트 자동 연동'],
+              ['대출 이자 + 운영·수선비', '-2,140 만원', 'in', '노란 입력 셀'],
+              ['재산세·제세공과금 예비비', '-320 만원', 'in', '노란 입력 셀'],
+              ['연간 세전 순현금흐름 (NOI)', '+3,238 만원 (월 269.8만)', 'out', '자동 산출']
+            ]
+          },
+          {
+            name: '04_공실_금리_스트레스',
+            fx: '=(C$4*(1-$B7)) - (C$5*(C$6+D$6)/12) - C$7',
+            desc: '공실률(0%~25%) × 대출금리 변동(-0.5%p~+1.5%p) 2차원 표로 흑자 방어선과 비상예비비 규모를 점검합니다.',
+            headers: ['공실률 \\ 금리변동', '기준금리 (+0.0%p)', '금리 +1.0%p', '금리 +1.5%p'],
+            rows: [
+              ['공실 0% (만실)', '+270 만/월', '+242 만/월', '+228 만/월'],
+              ['공실 15%', '+198 만/월', '+170 만/월', '+156 만/월'],
+              ['공실 25% (극한)', '+150 만/월', '+122 만/월', '+108 만/월']
+            ]
+          }
+        ]
+      }
+    };
+
+    let activePreviewKey = null;
+    function renderPreviewSheet(key, sheetIdx) {
+      const data = TOOLKIT_PREVIEWS[key];
+      if (!data) return;
+      const sheet = data.sheets[sheetIdx] || data.sheets[0];
+      document.querySelectorAll('#xlsx-sheet-tabs .xlsx-sheet-tab').forEach(function (el, idx) {
+        el.classList.toggle('active', idx === sheetIdx);
+      });
+      document.getElementById('xlsx-fx-code').textContent = sheet.fx;
+      document.getElementById('xlsx-sheet-desc').textContent = sheet.desc;
+      document.getElementById('xlsx-table-head').innerHTML =
+        '<tr>' + sheet.headers.map(function (h) { return '<th>' + h + '</th>'; }).join('') + '</tr>';
+      document.getElementById('xlsx-table-body').innerHTML = sheet.rows.map(function (r) {
+        const cls = r[2] === 'in' ? 'cell-in' : (r[2] === 'out' ? 'cell-out' : '');
+        return '<tr>' +
+          '<td><strong>' + r[0] + '</strong></td>' +
+          '<td class="' + cls + '">' + r[1] + '</td>' +
+          '<td>' + (r[2] === 'in' ? '🟨 입력' : (r[2] === 'out' ? '🟦 자동수식' : r[2])) + '</td>' +
+          '<td>' + r[3] + '</td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    function openToolkitPreview(key) {
+      const data = TOOLKIT_PREVIEWS[key];
+      if (!data) return;
+      activePreviewKey = key;
+      document.getElementById('xlsx-modal-title').textContent = data.title;
+      document.getElementById('xlsx-modal-sub').textContent = data.sub;
+      const tabsWrap = document.getElementById('xlsx-sheet-tabs');
+      tabsWrap.innerHTML = data.sheets.map(function (s, idx) {
+        return '<button type="button" class="xlsx-sheet-tab' + (idx === 0 ? ' active' : '') + '" onclick="renderPreviewSheet(\'' + key + '\',' + idx + ')">' + s.name + '</button>';
+      }).join('');
+      const cta = document.getElementById('xlsx-modal-cta');
+      const url = STORE_URLS[key];
+      if (url && /^https?:\/\//.test(url)) {
+        cta.href = url;
+        cta.target = '_blank';
+        cta.rel = 'noopener noreferrer';
+        cta.classList.remove('pending');
+        cta.textContent = '엑셀 툴킷 바로 받기 →';
+        cta.onclick = null;
+      } else {
+        cta.href = '#' + data.fallbackId;
+        cta.removeAttribute('target');
+        cta.classList.add('pending');
+        cta.textContent = '스토어 오픈 준비중 · 구성 보기';
+        cta.onclick = function (e) { closeToolkitPreview(); scrollToToolkitById(data.fallbackId, e); };
+      }
+      renderPreviewSheet(key, 0);
+      document.getElementById('xlsx-preview-backdrop').classList.add('open');
+    }
+
+    function closeToolkitPreview() {
+      document.getElementById('xlsx-preview-backdrop').classList.remove('open');
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeToolkitPreview();
+    });
 
     calcDSR();
     calcTradeup();
