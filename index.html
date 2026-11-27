@@ -206,7 +206,17 @@
     .bar-track { height: 12px; background: #0f172a; border-radius: 999px; overflow: hidden; display: flex; }
     .bar-fill-a { background: #3b82f6; height: 100%; transition: width 0.25s ease; }
     .bar-fill-b { background: #facc15; height: 100%; transition: width 0.25s ease; }
-    .bar-legend { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .bar-fill-c { background: #22c55e; height: 100%; transition: width 0.25s ease; }
+    .bar-legend { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .mini-chart { margin-top: 12px; padding: 12px 14px; background: rgba(15, 23, 42, 0.55); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .mini-chart-title { font-size: 11px; font-weight: 800; color: #93c5fd; letter-spacing: 0.03em; }
+    .mc-row { display: flex; flex-direction: column; gap: 4px; }
+    .mc-head { display: flex; justify-content: space-between; font-size: 12px; color: #cbd5e1; font-weight: 600; }
+    .mc-track { height: 10px; background: #0f172a; border-radius: 999px; overflow: hidden; }
+    .mc-fill { height: 100%; border-radius: 999px; transition: width 0.28s ease; }
+    .mc-fill.blue { background: linear-gradient(90deg, #2563eb, #38bdf8); }
+    .mc-fill.gold { background: linear-gradient(90deg, #eab308, #facc15); }
+    .mc-fill.teal { background: linear-gradient(90deg, #0d9488, #2dd4bf); }
 
     /* 결과 1클릭 공유 요약 복사 영역 */
     .share-bar {
@@ -450,6 +460,18 @@
             <div class="stat-row"><span class="k">매도 법정 중개수수료 상한 (부가세 포함)</span><span class="v" id="tu-sell-fee">-</span></div>
             <div class="stat-row"><span class="k">인테리어 · 등기 · 이사 예비비</span><span class="v" id="tu-extra-out">-</span></div>
           </div>
+          <div class="bar-wrap" aria-label="갈아타기 매몰비용 항목 비중">
+            <div class="bar-track">
+              <div class="bar-fill-a" id="tu-bar-tax" style="width:45%"></div>
+              <div class="bar-fill-b" id="tu-bar-fee" style="width:20%"></div>
+              <div class="bar-fill-c" id="tu-bar-extra" style="width:35%"></div>
+            </div>
+            <div class="bar-legend">
+              <span id="tu-leg-tax">취득세</span>
+              <span id="tu-leg-fee">매도·매수 복비</span>
+              <span id="tu-leg-extra">인테리어·이사</span>
+            </div>
+          </div>
           <div class="share-bar">
             <button type="button" class="share-btn" onclick="copyShareSummary('tradeup', this)">📋 스레드·카톡 공유 요약 복사</button>
             <button type="button" class="share-sub-btn" onclick="copyToolLink('tradeup', this)">🔗 링크 복사</button>
@@ -493,6 +515,17 @@
             <div class="stat-row"><span class="k">전세 선택 시 월 환산 기회비용</span><span class="v" id="rt-j-cost">-</span></div>
             <div class="stat-row"><span class="k">월세 선택 시 월 실질 주거비 (보증금 기회비용 포함)</span><span class="v" id="rt-m-cost">-</span></div>
             <div class="stat-row"><span class="k">적용 전월세 전환율 (환산)</span><span class="v" id="rt-conv">-</span></div>
+          </div>
+          <div class="mini-chart" aria-label="전세 대 월세 5년 누적 주거비 비교 차트">
+            <div class="mini-chart-title">5년 누적 실질 주거비 비교 (기회비용 포함)</div>
+            <div class="mc-row">
+              <div class="mc-head"><span>전세 5년 누적 기회비용</span><strong id="rt-lbl-j5">-</strong></div>
+              <div class="mc-track"><div class="mc-fill blue" id="rt-bar-j" style="width:70%"></div></div>
+            </div>
+            <div class="mc-row">
+              <div class="mc-head"><span>월세 5년 누적 실질 주거비</span><strong id="rt-lbl-m5">-</strong></div>
+              <div class="mc-track"><div class="mc-fill gold" id="rt-bar-m" style="width:85%"></div></div>
+            </div>
           </div>
           <div class="share-bar">
             <button type="button" class="share-btn" onclick="copyShareSummary('rent', this)">📋 스레드·카톡 공유 요약 복사</button>
@@ -558,6 +591,17 @@
             <div class="stat-row"><span class="k">공제 잔여 한도 (연금+IRP 900만원 기준)</span><span class="v" id="tx-remain-limit">-</span></div>
           </div>
           <div id="tx-tip-badge" class="badge-ok">계산 중...</div>
+          <div class="mini-chart" aria-label="세액공제 및 ISA 절세 항목 비교 차트">
+            <div class="mini-chart-title">절세 효과 구성 비교 (연간 추정)</div>
+            <div class="mc-row">
+              <div class="mc-head"><span>연금저축 + IRP 세액공제 환급</span><strong id="tx-lbl-pen">-</strong></div>
+              <div class="mc-track"><div class="mc-fill blue" id="tx-bar-pen" style="width:70%"></div></div>
+            </div>
+            <div class="mc-row">
+              <div class="mc-head"><span>ISA 비과세·분리과세 + 만기전환 절세</span><strong id="tx-lbl-isa">-</strong></div>
+              <div class="mc-track"><div class="mc-fill teal" id="tx-bar-isa" style="width:30%"></div></div>
+            </div>
+          </div>
           <div class="share-bar">
             <button type="button" class="share-btn" onclick="copyShareSummary('tax', this)">📋 스레드·카톡 공유 요약 복사</button>
             <button type="button" class="share-sub-btn" onclick="copyToolLink('tax', this)">🔗 링크 복사</button>
@@ -1109,6 +1153,18 @@
       document.getElementById('tu-buy-fee').innerText = fmt(buyFee) + '만원';
       document.getElementById('tu-sell-fee').innerText = fmt(sellFee) + '만원';
       document.getElementById('tu-extra-out').innerText = fmt(extra) + '만원';
+
+      const tuSafeTotal = Math.max(1, total);
+      const feeSum = buyFee + sellFee;
+      const pTax = Math.round((acqTax / tuSafeTotal) * 100);
+      const pFee = Math.round((feeSum / tuSafeTotal) * 100);
+      const pExtra = Math.max(0, 100 - pTax - pFee);
+      document.getElementById('tu-bar-tax').style.width = pTax + '%';
+      document.getElementById('tu-bar-fee').style.width = pFee + '%';
+      document.getElementById('tu-bar-extra').style.width = pExtra + '%';
+      document.getElementById('tu-leg-tax').innerText = '취득세 ' + pTax + '%';
+      document.getElementById('tu-leg-fee').innerText = '복비 ' + pFee + '%';
+      document.getElementById('tu-leg-extra').innerText = '기타 ' + pExtra + '%';
     }
 
     function calcRent() {
@@ -1134,6 +1190,14 @@
         document.getElementById('rt-winner').innerText = '월세가 더 유리합니다';
         document.getElementById('rt-diff').innerText = '월 약 ' + diffMonthly.toFixed(1) + '만원 (연 ' + fmt(diffMonthly * 12) + '만원) 절약';
       }
+
+      const j5yr = jMonthlyCost * 60;
+      const m5yr = mMonthlyCost * 60;
+      const max5 = Math.max(1, j5yr, m5yr);
+      document.getElementById('rt-lbl-j5').innerText = fmt(j5yr) + '만원';
+      document.getElementById('rt-lbl-m5').innerText = fmt(m5yr) + '만원';
+      document.getElementById('rt-bar-j').style.width = Math.max(6, Math.round((j5yr / max5) * 100)) + '%';
+      document.getElementById('rt-bar-m').style.width = Math.max(6, Math.round((m5yr / max5) * 100)) + '%';
     }
 
     function calcTax() {
@@ -1183,6 +1247,12 @@
         badge.className = 'badge-ok';
         badge.innerText = '✅ 연금저축·IRP 기본 세액공제 한도(900만원)를 모두 채우셨습니다. ISA 비과세·만기전환 전략을 함께 점검해 보세요.';
       }
+      const isaCombined = isaSave + transferRefund;
+      const txMax = Math.max(1, pensionRefund, isaCombined);
+      document.getElementById('tx-lbl-pen').innerText = pensionRefund.toFixed(1) + '만원';
+      document.getElementById('tx-lbl-isa').innerText = isaCombined.toFixed(1) + '만원';
+      document.getElementById('tx-bar-pen').style.width = Math.max(4, Math.round((pensionRefund / txMax) * 100)) + '%';
+      document.getElementById('tx-bar-isa').style.width = Math.max(4, Math.round((isaCombined / txMax) * 100)) + '%';
     }
 
     calcDSR();
