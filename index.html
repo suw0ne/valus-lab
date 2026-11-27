@@ -294,6 +294,32 @@
       border-color: var(--accent); box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.25);
     }
     .toolkit-spec h3 { margin-top: 0 !important; color: #facc15 !important; }
+    .toolkit-card-head {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 10px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+    }
+    .toolkit-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+    .tk-price-pill {
+      background: rgba(250, 204, 21, 0.18); border: 1px solid rgba(250, 204, 21, 0.6);
+      color: #fde047; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 900;
+    }
+    .tk-meta-pill {
+      background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #bae6fd; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 800;
+    }
+    .tk-store-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, #facc15, #f59e0b); color: #0f172a;
+      padding: 7px 14px; border-radius: 10px; font-size: 12px; font-weight: 900; text-decoration: none;
+    }
+    .tk-store-btn.pending { background: rgba(59, 130, 246, 0.18); color: #bfdbfe; border: 1px solid rgba(59, 130, 246, 0.5); }
+    .inline-upsell {
+      margin-top: 12px; padding: 11px 14px; border-radius: 12px;
+      background: rgba(37, 99, 235, 0.16); border: 1px solid rgba(59, 130, 246, 0.45);
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px;
+    }
+    .inline-upsell span { font-size: 12px; color: #dbeafe; font-weight: 700; }
+    .inline-upsell a { font-size: 12px; font-weight: 900; color: #facc15; text-decoration: none; white-space: nowrap; }
     .toolkit-spec ul { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 16px; margin-top: 10px; }
     @media (max-width: 768px) { .toolkit-spec ul { grid-template-columns: 1fr; } }
     .toolkit-spec li { font-size: 13px; color: #cbd5e1; padding-left: 14px; position: relative; }
@@ -416,6 +442,10 @@
             <button type="button" class="share-btn" onclick="copyShareSummary('dsr', this)">📋 스레드·카톡 공유 요약 복사</button>
             <button type="button" class="share-sub-btn" onclick="copyToolLink('dsr', this)">🔗 링크 복사</button>
           </div>
+          <div class="inline-upsell">
+            <span>📊 후보 10개 단지 자동 랭킹 · 금리 ±1.5%p 스트레스 · 임장 20대 체크리스트</span>
+            <a href="#toolkit-sheet-list" data-store-key="prod01" onclick="handleStoreCta('prod01', 'toolkit-sheet-list', event)">1호 내집마련 엑셀 툴킷 (₩19,900) →</a>
+          </div>
         </div>
       </div>
     </section>
@@ -475,6 +505,10 @@
           <div class="share-bar">
             <button type="button" class="share-btn" onclick="copyShareSummary('tradeup', this)">📋 스레드·카톡 공유 요약 복사</button>
             <button type="button" class="share-sub-btn" onclick="copyToolLink('tradeup', this)">🔗 링크 복사</button>
+          </div>
+          <div class="inline-upsell">
+            <span>🏡 갈아타기 매도·매수 부대비용 + 10개 후보 단지 비교 차트를 파일 하나로</span>
+            <a href="#toolkit-sheet-list" data-store-key="prod01" onclick="handleStoreCta('prod01', 'toolkit-sheet-list', event)">1호 갈아타기 엑셀 툴킷 보기 →</a>
           </div>
         </div>
       </div>
@@ -704,7 +738,16 @@
         (※ 본 계산은 세법상 일반 제도 기준의 참고 시뮬레이션이며, 실제 환급액은 결정세액 및 개인별 공제 요건에 따라 달라질 수 있습니다.)
       </p>
       <div class="toolkit-spec" id="toolkit-sheet-list">
-        <h3>밸루스 랩 2026 올인원 엑셀 툴킷 (6개 자동 연동 시트 · 오프라인 실행)</h3>
+        <div class="toolkit-card-head">
+          <div>
+            <h3>1호 · 밸루스 랩 2026 수도권 내집마련·갈아타기 올인원 엑셀 툴킷</h3>
+            <div class="toolkit-badges">
+              <span class="tk-price-pill">₩19,900 (영구소장)</span>
+              <span class="tk-meta-pill">6시트 · 94개 자동수식 · 비교차트 · 100% 오프라인 .xlsx</span>
+            </div>
+          </div>
+          <a href="#toolkit-sheet-list" class="tk-store-btn" data-store-key="prod01" onclick="handleStoreCta('prod01', 'toolkit-sheet-list', event)">툴킷 구성 확인 · 스토어 준비중</a>
+        </div>
         <p>웹 계산기로 1차 예산을 점검한 뒤, 실제 후보 단지를 비교할 때 활용하는 로컬 Excel(.xlsx) 패키지입니다. 노란색 입력 셀만 채우면 모든 지표와 차트가 자동 계산됩니다.</p>
         <ul>
           <li><strong>00_사용가이드</strong> — 30초 입력 안내 및 색상 범례</li>
@@ -717,7 +760,16 @@
       </div>
 
       <div class="toolkit-spec" id="toolkit-tax-list" style="margin-top: 16px;">
-        <h3>밸루스 랩 2026 연말정산·ISA·연금저축 절세 올인원 엑셀 툴킷 (6개 자동 연동 시트 · 오프라인 실행)</h3>
+        <div class="toolkit-card-head">
+          <div>
+            <h3>2호 · 밸루스 랩 2026 연말정산·ISA·연금저축 절세 올인원 엑셀 툴킷</h3>
+            <div class="toolkit-badges">
+              <span class="tk-price-pill">₩16,900 (영구소장)</span>
+              <span class="tk-meta-pill">6시트 · 97개 자동수식 · 세후비교차트 · 100% 오프라인 .xlsx</span>
+            </div>
+          </div>
+          <a href="#toolkit-tax-list" class="tk-store-btn" data-store-key="prod02" onclick="handleStoreCta('prod02', 'toolkit-tax-list', event)">툴킷 구성 확인 · 스토어 준비중</a>
+        </div>
         <p>무료 절세 시뮬레이터로 1차 환급액을 확인한 뒤, 1년치 월별 납입 진도와 ISA 세후 비교·연말정산 누락 항목까지 오프라인 Excel(.xlsx) 하나로 관리하는 패키지입니다. (※ 일반 세법 기준 참고 도구이며 특정 금융상품·종목 투자 권유가 아닙니다.)</p>
         <ul>
           <li><strong>00_사용가이드</strong> — 30초 입력 안내 · 색상 범례 · 세법 참고 안내</li>
@@ -730,7 +782,16 @@
       </div>
 
       <div class="toolkit-spec" id="toolkit-rental-list" style="margin-top: 16px;">
-        <h3>밸루스 랩 2026 임대인·1인 사업자 월세 수납 & 현금흐름 자동관리 엑셀 대시보드 (6개 자동 연동 시트 · 213개 수식 · 오프라인 실행)</h3>
+        <div class="toolkit-card-head">
+          <div>
+            <h3>3호 · 밸루스 랩 2026 임대인·1인 사업자 월세 수납 & 현금흐름 대시보드</h3>
+            <div class="toolkit-badges">
+              <span class="tk-price-pill">₩24,900 (영구소장)</span>
+              <span class="tk-meta-pill">6시트 · 213개 자동수식 · 수납률차트 · 100% 오프라인 .xlsx</span>
+            </div>
+          </div>
+          <a href="#toolkit-rental-list" class="tk-store-btn" data-store-key="prod03" onclick="handleStoreCta('prod03', 'toolkit-rental-list', event)">툴킷 구성 확인 · 스토어 준비중</a>
+        </div>
         <p>원룸·오피스텔·상가·1인 사업장 등 최대 12개 호실(또는 거래처)의 계약 만기 경보, 1~12월 수납·연체 차트, 순현금흐름(NOI), 공실×금리 스트레스 테스트를 외부 서버 전송 없이 내 PC Excel(.xlsx) 하나로 관리하는 패키지입니다. (※ 객관적 장부·현금흐름 관리 도구이며 특정 매물 추천이나 투자 권유가 아닙니다.)</p>
         <ul>
           <li><strong>00_사용가이드</strong> — 30초 입력 안내 · 색상 범례 · 운영 참고 안내</li>
@@ -816,8 +877,37 @@
   </div>
 
   <script>
-    // 밸루스 랩 기본 URL 및 딥링크 파라미터 별칭 테이블 (100% 브라우저 로컬 실행)
+    // 밸루스 랩 기본 URL · 스토어 링크 설정 슬롯 · 딥링크 별칭 테이블 (100% 로컬 실행)
     const SITE_BASE_URL = 'https://suw0ne.github.io/valus-lab/';
+    const STORE_URLS = {
+      prod01: '', // 크몽·스마트스토어·리틀리 개설 후 URL 입력
+      prod02: '',
+      prod03: ''
+    };
+    function handleStoreCta(key, fallbackElId, event) {
+      const url = STORE_URLS[key];
+      if (url && /^https?:\/\//.test(url)) {
+        if (event) event.preventDefault();
+        window.open(url, '_blank', 'noopener,noreferrer');
+        return;
+      }
+      scrollToToolkitById(fallbackElId, event);
+    }
+    function syncStoreButtons() {
+      document.querySelectorAll('.tk-store-btn[data-store-key]').forEach(function (el) {
+        const key = el.getAttribute('data-store-key');
+        const url = STORE_URLS[key];
+        if (url && /^https?:\/\//.test(url)) {
+          el.href = url;
+          el.target = '_blank';
+          el.rel = 'noopener noreferrer';
+          el.classList.remove('pending');
+          el.textContent = '엑셀 툴킷 바로 받기 →';
+        } else {
+          el.classList.add('pending');
+        }
+      });
+    }
     const TAB_ALIAS_MAP = {
       dsr: 'dsr',
       loan: 'dsr',
@@ -1264,6 +1354,7 @@
     calcTradeup();
     calcRent();
     calcTax();
+    syncStoreButtons();
     applyDeepLinkFromUrl();
   </script>
 </body>
